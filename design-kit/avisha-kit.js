@@ -1,4 +1,4 @@
-/* Avisha design kit v1 (27 Nov 2026). No libraries, no tracking. Exposes window.AK. See README.md. */
+/* Avisha design kit v2 (27 Nov 2026). No libraries, no tracking. Exposes window.AK. See README.md. */
 (function(w,d){"use strict";
 var mq=function(q){return w.matchMedia?w.matchMedia(q):{matches:false};};
 var RM=mq("(prefers-reduced-motion: reduce)"),FINE=mq("(hover: hover) and (pointer: fine)");
@@ -10,7 +10,7 @@ var AK={reduced:rm};
 
 /* ripple on tap */
 d.addEventListener("pointerdown",function(e){
-var t=e.target.closest&&e.target.closest(".ak-tile,.ak-btn,.ak-fab,.ak-dial-item,[data-ak-ripple]");if(!t||rm())return;
+var t=e.target.closest&&e.target.closest(".ak-tile,.ak-btn,.ak-dial-item,[data-ak-ripple]");if(!t||rm()||t.classList.contains("ak-btn-split"))return;
 var r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.2,c=d.createElement("span");
 c.className="ak-rip";c.setAttribute("aria-hidden","true");
 c.style.cssText="width:"+s+"px;height:"+s+"px;left:"+(e.clientX-r.left-s/2)+"px;top:"+(e.clientY-r.top-s/2)+"px";
@@ -129,7 +129,8 @@ AK.reveal=reveal;
 
 /* light / dark theme */
 function theme(t){var h=d.documentElement;if(t)h.setAttribute("data-theme",t);t=h.getAttribute("data-theme")||"light";
-each(d.querySelectorAll("[data-ak-theme-toggle]"),function(b){var dk=t==="dark";b.setAttribute("aria-pressed",dk?"true":"false");b.setAttribute("aria-label",dk?"Switch to light mode":"Switch to dark mode");b.textContent=dk?"☀️":"🌙";});
+each(d.querySelectorAll("[data-ak-theme-toggle]"),function(b){b.setAttribute("aria-pressed",t==="dark"?"true":"false");if(!b.getAttribute("aria-label"))b.setAttribute("aria-label","Dark mode");
+if(!b.querySelector(".ak-tt-track")){var tr=d.createElement("span");tr.className="ak-tt-track";tr.setAttribute("aria-hidden","true");var k=d.createElement("span");k.className="ak-tt-knob";tr.appendChild(k);b.textContent="";b.appendChild(tr);}});
 var m=d.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#0b1320":"#0f1b2d");return t;}
 AK.theme=theme;
 
