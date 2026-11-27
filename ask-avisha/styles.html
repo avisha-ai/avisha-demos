@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ask Avisha: style reference | Avisha demo</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--navy:#0f1b2d;--teal:#1d7f86;--pink:#e86fa8;--bg:#f3f5f8;--card:#fff;--ink:#0f1b2d;--mut:#4a5566;--line:#dfe5ec;--accent:#1d7f86;--sh:0 1px 2px rgba(15,27,45,.06),0 2px 6px rgba(15,27,45,.06)}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.45}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:22px;margin:0 0 4px}.lead{color:var(--mut);margin:0 0 18px;font-size:14px}
+.gal{display:grid;gap:12px}@media(min-width:620px){.gal{grid-template-columns:1fr 1fr}}
+.gi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--sh)}
+.spec{display:flex;flex-wrap:wrap;gap:10px;align-items:center;min-height:64px;margin:0 0 10px}
+.spec.dark{background:var(--navy);border-radius:8px;padding:12px}
+.gi b{display:block;font-size:15px}.gi p{margin:2px 0 0;font-size:14px;color:var(--mut)}
+code{font-size:12px;color:var(--accent)}
+.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:700}
+.btn-primary{background:var(--navy);color:#fff}
+.btn-secondary{background:var(--card);border:1px solid var(--line)}.btn-secondary .i{color:var(--accent)}
+.launch{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 18px 0 14px;border-radius:999px;color:#fff;font-weight:700;font-size:15px;background:linear-gradient(115deg,#15646a,#1d7f86 40%,#a3154f);box-shadow:0 4px 14px rgba(194,24,91,.3),0 0 12px rgba(95,196,201,.35)}
+.iconbtn{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff}
+.task{display:flex;flex-direction:column;gap:4px;width:220px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh)}
+.task .tl{display:flex;align-items:flex-start;gap:8px;font-weight:700;font-size:15px}.task .tl .i{color:var(--accent)}.task .tl span{flex:1}.task .tl .go{color:var(--mut)}
+.task .s{font-size:13px;color:var(--mut)}
+.chip{height:36px;display:inline-flex;align-items:center;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:13px}
+.icons{color:var(--accent)}
+footer{margin-top:20px;font-size:13px;color:var(--mut)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-hx" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="2"/><path d="M2 9v6M22 9v6M4 10.5h16M4 13.5h16M9 7V4.5M15 17v2.5"/></symbol>
+<symbol id="i-go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><path d="M4 6.5l1.5 1.5L8 5.5M4 12.5l1.5 1.5L8 11.5M4 18.5l1.5 1.5L8 17.5M11 7h9M11 13h9M11 19h9"/></symbol>
+<symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0 5 5L13 18a2.1 2.1 0 0 1-3-3l6.5-6.5a4 4 0 0 0-2-2z"/><path d="M14.5 6.5L17 4"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M7 15l4-4 3 3 5-6"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h7"/></symbol>
+<symbol id="i-tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/></symbol>
+</defs></svg>
+<div class="wrap">
+<h1>Ask Avisha: style reference (v4)</h1>
+<p class="lead">Design reference for the <a href="./">Ask Avisha demo</a>. The samples below are pictures, not buttons. Rule: one primary, one secondary, one assistant launcher; calm surfaces (8–12 px corners, light shadows, no gradients except the assistant launcher, minimal motion).</p>
+<div class="gal" aria-hidden="true">
+<div class="gi"><div class="spec"><span class="btn btn-primary">Ask <svg class="i"><use href="#i-send"/></svg></span><span class="btn btn-primary">Check readings</span></div><b>Primary: dark pill <code>.btn-primary</code></b><p>The one main action on a screen: "Ask", "Check readings", "Contact Avisha".</p></div>
+<div class="gi"><div class="spec"><span class="btn btn-secondary"><svg class="i"><use href="#i-mail"/></svg>Contact support</span><span class="btn btn-secondary">Next <svg class="i"><use href="#i-go"/></svg></span></div><b>Secondary: outline pill with icon <code>.btn-secondary</code></b><p>Every other action: contact support, next / previous in the recap.</p></div>
+<div class="gi"><div class="spec"><span class="launch"><svg class="i"><use href="#i-chat"/></svg>Ask Avisha</span></div><b>Assistant launcher <code>.launch</code></b><p>The only gradient and glow on the page. Floating, bottom right, opens the question sheet.</p></div>
+<div class="gi"><div class="spec dark"><span class="iconbtn"><svg class="i"><use href="#i-moon"/></svg></span></div><b>Theme switch: plain icon button <code>.iconbtn</code></b><p>Top-right corner of the header. Moon for dark, sun for light; starts with the device setting.</p></div>
+<div class="gi"><div class="spec"><span class="task"><span class="tl"><svg class="i"><use href="#i-tool"/></svg><span>Troubleshoot</span><svg class="i go"><use href="#i-go"/></svg></span><span class="s">Likely causes, what to check</span></span></div><b>Task card <code>.task</code></b><p>Four of equal size. Icon left, arrow always on the right on the title line. No backgrounds behind icons.</p></div>
+<div class="gi"><div class="spec"><span class="chip">Which side do I start first?</span></div><b>Example question chip <code>.chip</code></b><p>Under the question box; fills in a question from the manual.</p></div>
+<div class="gi"><div class="spec icons"><svg class="i"><use href="#i-hx"/></svg><svg class="i"><use href="#i-play"/></svg><svg class="i"><use href="#i-list"/></svg><svg class="i"><use href="#i-tool"/></svg><svg class="i"><use href="#i-chart"/></svg><svg class="i"><use href="#i-mail"/></svg><svg class="i"><use href="#i-tick"/></svg></div><b>Icon family <code>.i</code></b><p>Simple inline line icons, 20 px, 1.8 stroke, no emoji. First icon: the shell-and-tube exchanger.</p></div>
+<div class="gi"><div class="spec"><span style="background:#fff4d6;color:#7a4b00;border-radius:4px;padding:0 6px;font-size:12px;font-weight:600">sample</span><span style="color:#1d7f86;font-size:12px;font-weight:700">Source: HX-101 manual, section 9.1</span></div><b>Answer labels <code>.sv</code> <code>.src</code></b><p>Every answer: "From the manual", "Sample data / assumption", "Not covered" when the manual is silent, then the source line.</p></div>
+</div>
+<footer>Demo only; HX-101 and Example Process Equipment are made up. <a href="https://avisha.ai">avisha.ai</a></footer>
+</div>
+</body></html>
