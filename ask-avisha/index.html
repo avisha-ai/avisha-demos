@@ -1,363 +1,315 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Ask Avisha: HX-101 heat exchanger | Avisha demo</title>
-<meta name="description" content="Demo of Ask Avisha for machines: scan the QR code on a machine, tap a big button, get answers only from the approved manual. Made-up machine, sample manual.">
+<meta name="description" content="Demo of Ask Avisha for equipment: explore a machine and find guidance that comes only from its approved manual. Made-up machine, sample manual.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0f1b2d">
 <style>
-/* Avisha design kit v2 (27 Nov 2026: Avisha's chosen button set). No libraries, no fonts, no tracking. See README.md. */
-:root{--ak-navy:#0f1b2d;--ak-teal:#1d7f86;--ak-aqua:#5fc4c9;--ak-pink:#e86fa8;--ak-magenta:#c2185b;
---ak-bg:#eef2f6;--ak-card:#fff;--ak-ink:#0f1b2d;--ak-mut:#4a5566;--ak-line:#e3e8ee;--ak-soft:#e6f4f5;--ak-accent:#1d7f86;--ak-focus:#c2185b;
---ak-spring:cubic-bezier(.34,1.56,.64,1);--ak-soft-spring:cubic-bezier(.3,1.3,.6,1);--ak-out:cubic-bezier(.2,.8,.2,1);
---ak-shadow:0 6px 16px rgba(15,27,45,.16);--ak-shadow-up:0 18px 36px rgba(15,27,45,.26);color-scheme:light}
-[data-theme=dark]{--ak-bg:#0b1320;--ak-card:#15223a;--ak-ink:#e8eef5;--ak-mut:#a9b6c6;--ak-line:#273852;--ak-soft:#173445;--ak-accent:#6fd0d5;--ak-focus:#f39bc4;
---ak-shadow:0 6px 18px rgba(0,0,0,.45);--ak-shadow-up:0 18px 40px rgba(0,0,0,.55);color-scheme:dark}
-.ak-tile:focus-visible,.ak-btn:focus-visible,.ak-dial-item:focus-visible,.ak-x:focus-visible,.ak-toggle-theme:focus-visible,.ak-stories button:focus-visible,.ak-sheet:focus-visible{outline:4px solid var(--ak-focus);outline-offset:3px}
-.ak-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-
-/* 6. animated gradient hero + theme toggle */
-.ak-hero{position:relative;overflow:hidden;isolation:isolate;color:#fff;background:var(--ak-navy)}
-.ak-hero::before{content:"";position:absolute;inset:-60%;z-index:-1;pointer-events:none;
-background:radial-gradient(circle at 28% 32%,#1d7f86 0,transparent 34%),radial-gradient(circle at 72% 58%,rgba(232,111,168,.55) 0,transparent 32%),radial-gradient(circle at 42% 78%,#155e66 0,transparent 38%),radial-gradient(circle at 80% 20%,#8a1f5a 0,transparent 30%);
-animation:ak-drift 18s ease-in-out infinite alternate;will-change:transform}
-@keyframes ak-drift{to{transform:translate(9%,-7%) rotate(28deg) scale(1.08)}}
-.ak-glass{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:24px}
-
-/* 2. bento tiles */
-.ak-bento{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:minmax(136px,auto);grid-auto-flow:dense;gap:12px}
-@media(min-width:720px){.ak-bento{grid-template-columns:repeat(4,1fr);gap:16px}}
-.ak-w2{grid-column:span 2}.ak-h2{grid-row:span 2}
-.ak-tile{position:relative;overflow:hidden;border:0;border-radius:24px;padding:16px;min-height:56px;text-align:left;cursor:pointer;color:#fff;font:inherit;
-display:flex;flex-direction:column;justify-content:flex-end;gap:2px;box-shadow:var(--ak-shadow);
-transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px)) scale(var(--s,1));
-transition:transform .45s var(--ak-spring),box-shadow .3s ease;will-change:transform;-webkit-tap-highlight-color:transparent}
-.ak-tile::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 30% 0%,rgba(255,255,255,.35),transparent 55%);opacity:0;transition:opacity .3s}
-@media(hover:hover){.ak-tile:hover{--ty:-6px;box-shadow:var(--ak-shadow-up)}.ak-tile:hover::after{opacity:1}}
-.ak-tile:active{--s:.95;--ty:0px;transition-duration:.12s}
-.ak-tile.ak-tilting{transition:transform .15s ease-out,box-shadow .3s ease}
-
-/* 1. speed dial */
-.ak-dial{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:30;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-.ak-dial-scrim{position:fixed;inset:0;z-index:-1;background:rgba(15,27,45,.35);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
-.ak-dial:not(.open) .ak-dial-menu{pointer-events:none}
-.ak-dial.open .ak-dial-scrim{opacity:1;visibility:visible}
-.ak-dial-menu{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.ak-dial-item{display:flex;align-items:center;gap:10px;min-height:56px;padding:6px 6px 6px 18px;border:0;border-radius:999px;background:var(--ak-card);color:var(--ak-ink);font:inherit;font-weight:800;font-size:16px;cursor:pointer;box-shadow:var(--ak-shadow-up);
-opacity:0;transform:translateY(28px) scale(.5);transform-origin:right center;transition:transform .2s var(--ak-out),opacity .15s ease;transition-delay:calc(var(--j,0) * 20ms)}
-.ak-dial-item .ak-ico{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--ak-soft);font-size:22px;flex:none}
-.ak-dial.open .ak-dial-item{opacity:1;transform:none;transition:transform .5s var(--ak-spring),opacity .2s ease;transition-delay:calc(var(--i,0) * 60ms)}
-.ak-fab{min-height:64px;min-width:64px;padding:0 22px 0 16px;font-size:17px}
-.ak-fab .ak-plus{font-size:30px;line-height:1;display:inline-block;transition:transform .45s var(--ak-spring)}
-.ak-dial.open .ak-plus{transform:rotate(135deg)}
-@media(hover:hover){.ak-dial.open .ak-dial-item:hover{transform:translateY(-3px);transition-delay:0s}}
-
-/* 3. bottom sheet */
-.ak-scrim{position:fixed;inset:0;z-index:40;display:flex;align-items:flex-end;justify-content:center;background:rgba(15,27,45,.45);-webkit-backdrop-filter:blur(8px) saturate(1.2);backdrop-filter:blur(8px) saturate(1.2);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s}
-.ak-scrim.open{opacity:1;visibility:visible}
-.ak-sheet{width:100%;max-width:680px;max-height:calc(92vh + 40px);margin-bottom:-40px;padding-bottom:40px;display:flex;flex-direction:column;background:var(--ak-card);color:var(--ak-ink);border-radius:28px 28px 0 0;box-shadow:0 -12px 40px rgba(15,27,45,.3);
-transform:translateY(105%);transition:transform .24s cubic-bezier(.4,0,1,1);outline:0}
-.ak-scrim.open .ak-sheet{transform:translateY(var(--dy,0px));transition:transform .55s var(--ak-soft-spring)}
-.ak-scrim.open .ak-sheet.ak-dragging{transition:none}
-.ak-handle{height:26px;flex:none;cursor:grab;touch-action:none;position:relative}
-.ak-handle::before{content:"";position:absolute;left:50%;top:10px;width:46px;height:5px;margin-left:-23px;border-radius:9px;background:var(--ak-line)}
-.ak-sheet-head{display:flex;align-items:center;gap:10px;padding:0 14px 10px 22px;border-bottom:1px solid var(--ak-line);touch-action:none}
-.ak-sheet-head h2{flex:1;margin:0;font-size:21px;letter-spacing:-.01em}
-.ak-x{width:56px;height:56px;flex:none;border-radius:50%;border:0;background:var(--ak-soft);color:var(--ak-ink);font-size:22px;cursor:pointer;transition:transform .3s var(--ak-spring)}
-.ak-x:active{transform:scale(.88) rotate(90deg)}
-.ak-sheet-body{overflow-y:auto;padding:16px 22px 28px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
-
-/* 4. story cards */
-.ak-stories{position:relative;overflow:hidden;border-radius:24px;min-height:280px;color:#fff;background:linear-gradient(160deg,var(--ak-navy),#155e66 60%,#8a1f5a);user-select:none;-webkit-user-select:none}
-.ak-bars{position:absolute;top:12px;left:14px;right:14px;z-index:3;display:flex;gap:5px}
-.ak-bars i{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.3);overflow:hidden}
-.ak-bars b{display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:left}
-.ak-bars .done b,.ak-bars .cur b{transform:none}
-.ak-bars .on b{animation:ak-fill var(--ak-dur,5s) linear forwards}
-.ak-stories.paused .ak-bars .on b{animation-play-state:paused}
-@keyframes ak-fill{to{transform:none}}
-.ak-story{position:absolute;inset:0;padding:52px 24px 24px;display:flex;flex-direction:column;justify-content:center;gap:8px;opacity:0;transform:translateX(24px) scale(.96);transition:opacity .3s ease,transform .5s var(--ak-spring);pointer-events:none}
-.ak-story.on{opacity:1;transform:none}
-.ak-story.past{transform:translateX(-24px) scale(.96)}
-.ak-tap{position:absolute;top:0;bottom:0;z-index:2;border:0;background:none;cursor:pointer;padding:0}
-.ak-tap.prev{left:0;width:34%}.ak-tap.next{right:0;width:66%}
-.ak-pause{position:absolute;top:24px;right:8px;z-index:4;width:56px;height:56px;border:0;border-radius:50%;background:none;color:#fff;font-size:18px;cursor:pointer}
-
-/* 5. micro-interactions */
-.ak-tile,.ak-btn,.ak-fab,.ak-dial-item,[data-ak-ripple]{position:relative;overflow:hidden}
-.ak-rip{position:absolute;border-radius:50%;background:currentColor;opacity:.28;transform:scale(0);pointer-events:none;animation:ak-rip .6s ease-out forwards}
-@keyframes ak-rip{to{transform:scale(1);opacity:0}}
-.ak-check svg{width:76px;height:76px;display:block;margin:0 auto}
-.ak-check circle{fill:#15803d}.ak-check path{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60}
-.ak-check.go svg{animation:ak-popin .55s var(--ak-spring)}.ak-check.go path{animation:ak-draw .45s .2s ease forwards}
-@keyframes ak-draw{to{stroke-dashoffset:0}}
-@keyframes ak-popin{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
-.ak-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.ak-confetti i{position:absolute;left:50%;top:38%;width:8px;height:12px;border-radius:2px;opacity:0;animation:ak-burst 1.1s cubic-bezier(.15,.7,.4,1) forwards}
-@keyframes ak-burst{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r))}}
-.ak-ring{position:relative;width:84px;height:84px;flex:none}
-.ak-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ak-ring circle{fill:none;stroke-width:9}.ak-ring .ak-ring-bg{stroke:var(--ak-line)}
-.ak-ring .ak-ring-fg{stroke:var(--ak-teal);stroke-linecap:round;transition:stroke-dashoffset .6s var(--ak-spring),stroke .3s}
-.ak-ring.full .ak-ring-fg{stroke:#16a34a}
-.ak-ring-val{position:absolute;inset:0;display:grid;place-items:center;font-weight:800;font-size:19px}
-.ak-skel{position:relative;overflow:hidden;height:16px;margin:10px 0;border-radius:10px;background:var(--ak-line)}
-.ak-skel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);transform:translateX(-100%);animation:ak-shim 1s ease-in-out infinite}
-[data-theme=dark] .ak-skel::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent)}
-@keyframes ak-shim{to{transform:translateX(100%)}}
-.ak-pop{animation:ak-popup .55s var(--ak-spring) both}
-@keyframes ak-popup{from{opacity:0;transform:translateY(26px) scale(.9)}to{opacity:1;transform:none}}
-.ak-js .ak-reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .8s var(--ak-out)}
-.ak-js .ak-reveal.ak-in{opacity:1;transform:none}
-
-/* 7. buttons (Avisha picks, 27 Nov 2026). One primary per screen; glow only for the single AI action; glass only on the dark hero. */
-.ak-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 24px;border:0;border-radius:999px;font:inherit;font-size:16px;font-weight:700;line-height:1.15;text-decoration:none;cursor:pointer;
-box-shadow:var(--ak-shadow);transition:transform .35s var(--ak-spring),box-shadow .3s ease,background-color .2s;-webkit-tap-highlight-color:transparent}
-@media(hover:hover){.ak-btn:hover,.ak-lift:hover{transform:translateY(-3px);box-shadow:var(--ak-shadow-up)}}
-.ak-btn:active,.ak-lift:active{transform:translateY(0) scale(.97);transition-duration:.12s}
-.ak-lift{transition:transform .35s var(--ak-spring),box-shadow .3s ease}
-.ak-wide{display:flex;width:100%}
-.ak-arrow{display:inline-block;transition:transform .35s var(--ak-spring)}
-/* core: dark pill with arrow = THE primary action */
-.ak-btn-primary{background:var(--ak-navy);color:#fff;text-transform:uppercase;letter-spacing:.07em;font-size:15px}
-[data-theme=dark] .ak-btn-primary{background:#e8eef5;color:var(--ak-navy)}
-@media(hover:hover){.ak-btn-primary:hover .ak-arrow{transform:translateX(5px)}}
-/* core: split pill + arrow bubble = contact / book / ask */
-.ak-btn-split{gap:4px;padding:0;background:none;box-shadow:none;color:#fff;overflow:visible}
-.ak-btn-split .ak-split-label{display:flex;align-items:center;min-height:56px;padding:0 22px;border-radius:999px;background:#15646a;box-shadow:var(--ak-shadow)}
-.ak-btn-split .ak-split-arrow{display:grid;place-items:center;width:56px;height:56px;flex:none;border-radius:50%;background:var(--ak-pink);color:var(--ak-navy);font-size:22px;font-weight:800;box-shadow:var(--ak-shadow);transition:transform .45s var(--ak-spring)}
-@media(hover:hover){.ak-btn-split:hover{box-shadow:none}.ak-btn-split:hover .ak-split-arrow{transform:translateX(3px) rotate(45deg)}.ak-btn-split:hover .ak-split-label,.ak-btn-split:hover .ak-split-arrow{box-shadow:var(--ak-shadow-up)}}
-/* core: icon-circle pill = secondary actions in sheets */
-.ak-btn-icon{gap:12px;padding:6px 22px 6px 6px;background:var(--ak-card);color:var(--ak-ink);box-shadow:var(--ak-shadow),inset 0 0 0 1px var(--ak-line)}
-.ak-btn-icon .ak-ic{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;background:var(--ak-ic,var(--ak-teal));color:#fff;transition:transform .4s var(--ak-spring)}
-.ak-btn-icon .ak-ic svg{width:20px;height:20px;fill:currentColor}
-.ak-ic-pink{--ak-ic:var(--ak-magenta)}.ak-ic-navy{--ak-ic:var(--ak-navy)}
-[data-theme=dark] .ak-ic-navy{--ak-ic:#2c4a72}
-@media(hover:hover){.ak-btn-icon:hover .ak-ic{transform:scale(1.08) rotate(-8deg)}}
-/* sparing: glow gradient = ONLY the single AI action */
-.ak-btn-ai{color:#fff;background:linear-gradient(115deg,#15646a,#1d7f86 30%,#a3154f 70%,#15646a);background-size:250% 100%;
-box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 8px 26px rgba(194,24,91,.38),0 0 22px rgba(95,196,201,.4);animation:ak-glow 6s ease-in-out infinite alternate}
-@keyframes ak-glow{to{background-position:100% 0}}
-@media(hover:hover){.ak-btn-ai:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 14px 34px rgba(194,24,91,.5),0 0 32px rgba(95,196,201,.6)}}
-.ak-spark{width:18px;height:18px;flex:none;fill:#fff;animation:ak-twinkle 2.4s ease-in-out infinite}
-@keyframes ak-twinkle{50%{transform:scale(.7) rotate(45deg);opacity:.75}}
-/* sparing: glass = ONLY on the dark hero */
-.ak-btn-glass{color:#fff;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.38);-webkit-backdrop-filter:blur(12px) saturate(1.3);backdrop-filter:blur(12px) saturate(1.3);
-box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -8px 18px rgba(95,196,201,.18),0 8px 24px rgba(0,0,0,.28);text-shadow:0 1px 2px rgba(0,0,0,.35)}
-@media(hover:hover){.ak-btn-glass:hover{background:rgba(255,255,255,.2)}}
-/* sparing: day/night theme switch */
-.ak-toggle-theme{position:relative;display:inline-block;vertical-align:middle;flex:none;width:84px;height:56px;padding:0;border:0;background:none;cursor:pointer;border-radius:999px}
-.ak-tt-track{position:absolute;left:4px;right:4px;top:10px;bottom:10px;overflow:hidden;border-radius:999px;background:#4aa6c9;box-shadow:inset 0 2px 6px rgba(0,0,0,.3),0 0 0 2px rgba(255,255,255,.6);transition:background-color .5s}
-.ak-tt-track::before{content:"";position:absolute;right:-4px;bottom:-6px;width:46px;height:24px;background:radial-gradient(circle at 12px 16px,#fff 9px,transparent 10px),radial-gradient(circle at 26px 10px,#fff 11px,transparent 12px),radial-gradient(circle at 40px 16px,#fff 9px,transparent 10px);transition:transform .5s var(--ak-out),opacity .4s}
-.ak-tt-track::after{content:"";position:absolute;left:8px;top:6px;width:30px;height:22px;background:radial-gradient(circle at 3px 4px,#fff 1.5px,transparent 2px),radial-gradient(circle at 18px 2px,#fff 1px,transparent 1.5px),radial-gradient(circle at 12px 14px,#fff 1.5px,transparent 2px),radial-gradient(circle at 27px 18px,#fff 1px,transparent 1.5px);opacity:0;transform:translateY(-10px);transition:transform .5s var(--ak-out),opacity .4s}
-.ak-tt-knob{position:absolute;left:4px;top:4px;width:28px;height:28px;border-radius:50%;background:#ffd166;box-shadow:0 0 0 4px rgba(255,209,102,.35),0 2px 4px rgba(0,0,0,.3);transition:transform .55s var(--ak-spring),background-color .4s,box-shadow .4s}
-.ak-toggle-theme[aria-pressed=true] .ak-tt-track{background:#0f1b2d}
-.ak-toggle-theme[aria-pressed=true] .ak-tt-track::before{transform:translateY(24px);opacity:0}
-.ak-toggle-theme[aria-pressed=true] .ak-tt-track::after{transform:none;opacity:1}
-.ak-toggle-theme[aria-pressed=true] .ak-tt-knob{transform:translateX(40px) rotate(-30deg);background:radial-gradient(circle at 9px 10px,#b8c3d1 3px,transparent 3.5px),radial-gradient(circle at 18px 18px,#b8c3d1 4px,transparent 4.5px),#e8eef5;box-shadow:0 0 0 4px rgba(232,238,245,.15),0 2px 4px rgba(0,0,0,.4)}
-
-@media(prefers-reduced-motion:reduce){
-.ak-btn:hover,.ak-lift:hover{transform:none!important}
-*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-.ak-tile{--rx:0deg!important;--ry:0deg!important}
-.ak-js .ak-reveal{opacity:1;transform:none}
-.ak-check path{stroke-dashoffset:0}
-.ak-bars .on b{transform:none}
-.ak-rip,.ak-confetti,.ak-pause{display:none}}
-
-/* ---- Ask Avisha demo v3 ---- */
+/* Ask Avisha demo v4 (27 Nov 2026): calm, precise engineering assistant. No libraries, no fonts, no tracking.
+   One primary (dark pill), one secondary (outline pill), one assistant launcher (the only gradient). */
+:root{--navy:#0f1b2d;--teal:#1d7f86;--pink:#e86fa8;--magenta:#c2185b;
+--bg:#f3f5f8;--card:#fff;--ink:#0f1b2d;--mut:#4a5566;--line:#dfe5ec;--soft:#eef6f7;--accent:#1d7f86;--focus:#c2185b;
+--sh:0 1px 2px rgba(15,27,45,.06),0 2px 6px rgba(15,27,45,.06);
+--svbg:#fff4d6;--svtx:#7a4b00;--okbg:#e7f7ec;--oktx:#14532d;--warnbg:#fef3c7;--warntx:#78350f;--nobg:#eef1f5;--notx:#334155;--pinkbg:#fdeef5;--pinktx:#8a2155;color-scheme:light}
+[data-theme=dark]{--bg:#0b1320;--card:#14203a;--ink:#e8eef5;--mut:#a9b6c6;--line:#273852;--soft:#173445;--accent:#6fd0d5;--focus:#f39bc4;
+--sh:0 1px 2px rgba(0,0,0,.3),0 2px 8px rgba(0,0,0,.25);
+--svbg:#3d3014;--svtx:#ffd98a;--okbg:#12351f;--oktx:#86efac;--warnbg:#3d2a0c;--warntx:#fcd34d;--nobg:#1c2a40;--notx:#cbd5e1;--pinkbg:#3a1a2c;--pinktx:#f7b6d4;color-scheme:dark}
 *{box-sizing:border-box}
-:root{--soft2:#f6f8fb;--pinkbg:#fdeef5;--pinktx:#8a2155;--svbg:#fff4d6;--svtx:#7a4b00;--okbg:#dcfce7;--oktx:#14532d;--warnbg:#fef3c7;--warntx:#78350f;--me:#0f1b2d}
-[data-theme=dark]{--soft2:#101b2e;--pinkbg:#3a1a2c;--pinktx:#f7b6d4;--svbg:#3d3014;--svtx:#ffd98a;--okbg:#12351f;--oktx:#86efac;--warnbg:#3d2a0c;--warntx:#fcd34d;--me:#1d6a70}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ak-ink);background:var(--ak-bg);line-height:1.5;-webkit-tap-highlight-color:transparent;transition:background .3s}
-button{font:inherit;color:inherit}
-.demo{background:#ffd6e8;color:#0f1b2d;font-weight:700;text-align:center;padding:7px 12px;font-size:13px;margin:0;position:relative;z-index:2}
-.ak-hero{padding:14px 0 70px;border-radius:0 0 34px 34px}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.45;-webkit-tap-highlight-color:transparent}
+button,input{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .wrap{max-width:960px;margin:0 auto;padding:0 14px}
-.top{display:flex;align-items:center;gap:10px;margin:0 0 14px}
-.brand{flex:1;font-weight:800;letter-spacing:.02em;font-size:15px;opacity:.95}.brand i{font-style:normal;color:#ffc2dc}
-.mc{display:flex;gap:14px;align-items:center;padding:18px}
-.mc .ic{flex:none;width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,#1d7f86,#5fc4c9);display:grid;place-items:center;font-size:32px;box-shadow:0 8px 20px rgba(0,0,0,.25);animation:float 4s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-5px) rotate(-4deg)}}
-.mc h1{font-size:30px;line-height:1.05;margin:0;letter-spacing:-.02em}.mc .sub{margin:3px 0 9px;color:#d5dee9;font-size:14px}
-.pill{display:inline-flex;align-items:center;gap:7px;background:#dcfce7;color:#15803d;font-weight:800;font-size:13px;border-radius:999px;padding:5px 12px}
-.pill i{width:9px;height:9px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%,100%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
-.lead{font-size:clamp(24px,6vw,36px);font-weight:900;line-height:1.1;margin:22px 0 0;letter-spacing:-.02em}
-.lead span{background:linear-gradient(90deg,#ffc2dc,#a8f0f3);-webkit-background-clip:text;background-clip:text;color:transparent}
-main.wrap{margin-top:-52px;position:relative;z-index:1}
-.tile{background:linear-gradient(140deg,#0f1b2d,#1d7f86)}
-.tile .e{position:absolute;top:14px;left:14px;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:28px;background:rgba(255,255,255,.18);transition:transform .5s var(--ak-spring)}
-.tile:hover .e{transform:translateY(-3px) rotate(-8deg) scale(1.08)}
-.tile .go{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.2);font-size:16px;transition:transform .4s var(--ak-spring)}
-.tile:hover .go{transform:translate(2px,-2px) rotate(-45deg)}
-.tile b{font-size:19px;line-height:1.15;position:relative}.tile span.s{font-size:13px;opacity:.92;position:relative}
-.t1{background:linear-gradient(150deg,#155e66,#0f1b2d 70%);min-height:200px}.t1 b{font-size:26px}
-.t1 .badge{position:relative;align-self:flex-start;margin:0 0 8px;background:#ffd6e8;color:#0f1b2d;font-weight:800;font-size:12px;border-radius:99px;padding:3px 10px}
-.t2{background:linear-gradient(150deg,#2a9aa0,#15646a)}
-.t3{background:linear-gradient(150deg,#e0559a,#c2185b 55%,#a3154f)}
-.t4{background:linear-gradient(150deg,#a8e3e6,#5fc4c9);color:#0f1b2d}.t4 .e,.t4 .go{background:rgba(15,27,45,.1)}
-.t5{background:var(--ak-card);color:var(--ak-ink);box-shadow:var(--ak-shadow),inset 0 0 0 3px var(--ak-teal)}.t5 .e,.t5 .go{background:var(--ak-soft)}
-.t6{background:linear-gradient(150deg,#1b2a44,#0f1b2d)}
-@media(hover:hover){.t5:hover{box-shadow:var(--ak-shadow-up),inset 0 0 0 3px var(--ak-teal)}}
-@media(min-width:720px){.t1{grid-row:span 2;min-height:288px}.t6{grid-column:span 4;min-height:120px}}
-.herobtn{margin:16px 0 0}
-footer{text-align:center;color:var(--ak-mut);font-size:13px;padding:10px 16px 110px}footer p{margin:4px 0}footer a{color:var(--ak-accent)}
-footer .more{margin:6px 0 18px}
-.acts{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 14px}
-.small{font-size:12px;color:var(--ak-mut);margin:6px 0 0}
-/* style gallery */
-.gallery{margin:34px 0 26px}.gallery h2{font-size:22px;margin:0 0 4px;letter-spacing:-.01em}.gallery>p{color:var(--ak-mut);margin:0 0 14px;font-size:14px}
-.gal{display:grid;gap:12px}@media(min-width:620px){.gal{grid-template-columns:1fr 1fr}}
-.gi{background:var(--ak-card);border-radius:22px;padding:16px;box-shadow:var(--ak-shadow)}
-.gi .spec{display:flex;flex-wrap:wrap;gap:10px;align-items:center;min-height:64px;margin:0 0 10px}
-.gi .spec .ak-btn{cursor:default}
-.gi .spec.dark{background:linear-gradient(135deg,#0f1b2d,#155e66 70%,#8a1f5a);border-radius:16px;padding:12px}
-.gi b{display:block;font-size:15px}.gi p{margin:2px 0 0;font-size:14px;color:var(--ak-mut)}
-.gi code{font-size:12px;color:var(--ak-accent)}
-footer .ap{color:var(--ak-ink);font-weight:600;font-size:14px}
-/* sheet contents */
-.note{font-size:13px;color:var(--ak-mut);margin:0 0 12px}
-.src{display:block;margin-top:6px;font-size:12px;color:var(--ak-accent);font-weight:700}
+
+/* honesty banner (1 line on phones: ~30 px) */
+.demo{margin:0;background:#ffd6e8;color:#0f1b2d;font-weight:600;text-align:center;padding:6px 10px;font-size:12px;line-height:18px}
+
+/* compact header (~92 px) */
+header{background:var(--navy);color:#fff}
+.hd{display:flex;align-items:center;gap:10px;padding:10px 0}
+.hd .eq{width:36px;height:36px;flex:none;border-radius:8px;border:1px solid rgba(255,255,255,.25);display:grid;place-items:center;color:#a8e3e6}
+.hd .eq .i{width:26px;height:26px;stroke-width:1.5}
+.hd .t{flex:1;min-width:0}
+.hd h1{margin:0;font-size:17px;line-height:22px;font-weight:700}
+.hd .meta{margin:0;font-size:12px;line-height:18px;color:#c9d4e2}
+.hd .meta a{color:#a8e3e6}
+.badge{display:inline-block;border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:0 6px;font-size:11px;font-weight:700;letter-spacing:.04em;color:#fff;vertical-align:1px}
+.iconbtn{width:40px;height:40px;flex:none;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);border-radius:8px;background:none;color:#fff;cursor:pointer;padding:0}
+.iconbtn .i{width:18px;height:18px}
+.status{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;border-top:1px solid rgba(255,255,255,.12);padding:6px 0 8px;font-size:12px;line-height:18px;color:#c9d4e2}
+.status b{color:#fff;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.status b::before{content:"";width:8px;height:8px;border-radius:50%;background:#4ade80}
+
+/* main */
+main{padding:12px 0 8px}
+.lead{margin:0 0 10px;font-size:14px;line-height:22px;color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh)}
+.askbox{padding:12px 14px}
+.askbox label{display:block;font-weight:700;font-size:16px;line-height:22px;margin:0 0 8px}
+.row{display:flex;gap:8px}
+.row input{flex:1;min-width:0;height:48px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:16px}
+.row input:focus-visible{outline-offset:0}
+.chips{display:flex;gap:8px;margin:10px 0 0;overflow-x:auto;scrollbar-width:none;padding:1px}
+.chips::-webkit-scrollbar{display:none}
+.chips.wrap-ok{flex-wrap:wrap;overflow:visible}
+.chip{flex:none;height:36px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font-size:13px;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--teal)}
+.chip[aria-pressed=true]{border-color:var(--teal);color:var(--accent);font-weight:600}
+
+/* four equal task cards: 2x2 on phones (88 px each), 4 across on laptops */
+h2.lbl{margin:16px 0 8px;font-size:13px;line-height:18px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mut)}
+.tasks{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:10px}
+@media(min-width:760px){.tasks{grid-template-columns:repeat(4,1fr)}}
+.task{display:flex;flex-direction:column;gap:4px;min-height:88px;padding:12px;text-align:left;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);color:var(--ink)}
+.task:hover{border-color:var(--teal)}
+.task .tl{display:flex;align-items:flex-start;gap:8px;font-weight:700;font-size:15px;line-height:20px}
+.task .tl .i{color:var(--accent)}
+.task .tl span{flex:1;min-width:0}
+.task .tl .go{color:var(--mut);width:18px;height:18px}
+.task .s{font-size:13px;line-height:18px;color:var(--mut)}
+.task.em{border-color:var(--teal)}
+
+/* buttons: one primary, one secondary */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;flex:none}
+.btn-primary{background:var(--navy);color:#fff;border:1px solid var(--navy)}
+[data-theme=dark] .btn-primary{background:#e8eef5;color:var(--navy);border-color:#e8eef5}
+.btn-secondary{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn-secondary .i{color:var(--accent)}
+.btn-secondary:hover{border-color:var(--teal)}
+.btn-wide{display:flex;width:100%}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+
+/* assistant launcher: the only gradient on the page */
+.launch{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));z-index:30;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 18px 0 14px;border:0;border-radius:999px;cursor:pointer;color:#fff;font-weight:700;font-size:15px;
+background:linear-gradient(115deg,#15646a,#1d7f86 40%,#a3154f);box-shadow:0 4px 14px rgba(194,24,91,.3),0 0 12px rgba(95,196,201,.35)}
+.launch .i{stroke:#fff}
+
+/* technical details + about */
+details.tech{margin:16px 0 0}
+details.tech summary{display:flex;align-items:center;gap:8px;min-height:48px;padding:0 14px;cursor:pointer;font-weight:700;list-style:none}
+details.tech summary::-webkit-details-marker{display:none}
+details.tech summary .i{color:var(--accent)}
+details.tech summary span{flex:1}
+details.tech summary .go{color:var(--mut);transition:transform .15s}
+details.tech[open] summary .go{transform:rotate(90deg)}
+.tbody{padding:0 14px 14px;border-top:1px solid var(--line)}
+.tbody h3{font-size:15px;margin:14px 0 4px}
+.tbody p{margin:0 0 8px;font-size:14px}
+.f{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:17px;text-align:center;font-family:"Cambria Math","Times New Roman",serif;overflow-x:auto;white-space:nowrap}
+.calc{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0;font-size:14px}
+.uout{font-size:18px;font-weight:700;color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text-align:left;padding:6px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+.about{margin:16px 0 0;padding:14px}
+.about h2{margin:0 0 6px;font-size:18px}
+.about p{margin:0 0 8px;font-size:14px}
+.about ol{margin:0 0 8px;padding-left:20px;font-size:14px}.about li{margin:2px 0}
+footer{text-align:center;color:var(--mut);font-size:12px;padding:12px 16px 84px}footer p{margin:3px 0}
+
+/* sheet */
+.scrim{position:fixed;inset:0;z-index:40;display:flex;align-items:flex-end;justify-content:center;background:rgba(15,27,45,.45);opacity:0;visibility:hidden;transition:opacity .15s,visibility .15s}
+.scrim.open{opacity:1;visibility:visible}
+.sheet{width:100%;max-width:680px;max-height:90vh;display:flex;flex-direction:column;background:var(--card);color:var(--ink);border-radius:12px 12px 0 0;box-shadow:0 -4px 20px rgba(15,27,45,.2);transform:translateY(100%);transition:transform .18s ease-out;outline:0}
+.scrim.open .sheet{transform:none}
+.shead{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 18px;border-bottom:1px solid var(--line)}
+.shead h2{flex:1;margin:0;font-size:18px}
+.x{width:44px;height:44px;flex:none;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:none;cursor:pointer;padding:0}
+.sbody{overflow-y:auto;padding:14px 18px 24px;overscroll-behavior:contain}
+.note{font-size:13px;color:var(--mut);margin:0 0 12px}
 .sv{background:var(--svbg);padding:0 5px;border-radius:4px;font-size:12px;font-weight:600;color:var(--svtx);white-space:nowrap}
-.ref{font-size:12px;color:var(--ak-accent);font-weight:700;white-space:nowrap}
-.chip{border:1px solid var(--ak-teal);color:var(--ak-accent);background:var(--ak-card);border-radius:999px;padding:8px 16px;font-size:14px;min-height:56px;cursor:pointer;transition:transform .3s var(--ak-spring)}
-.chip:hover{background:var(--ak-soft)}.chip:active{transform:scale(.94)}.chip.x2{border-color:var(--ak-pink);color:var(--pinktx)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.ak-sheet-body h3.sec{margin:18px 0 8px;font-size:17px}
-/* watch */
-.ak-stories{min-height:300px}
-.ak-story .k{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#ffc2dc}
-.ak-story .big{font-size:46px;line-height:1}
-.ak-story p{margin:0;font-size:20px;font-weight:700;line-height:1.3}
-.ak-story .r{font-size:13px;color:#cfe9eb;font-weight:700}
-.hint{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-size:12px;color:#cfe9eb;z-index:1;pointer-events:none}
-.replay{display:none;position:absolute;left:50%;bottom:14px;z-index:5;transform:translateX(-50%);min-height:56px;padding:0 22px;border:0;border-radius:99px;background:#fff;color:#0f1b2d;font-weight:800;cursor:pointer}
-.ak-stories.ended .replay{display:block}.ak-stories.ended .hint{display:none}
-.vids{display:grid;gap:14px}@media(min-width:620px){.vids{grid-template-columns:1fr 1fr}}
-video{width:100%;border-radius:14px;background:#0f1b2d;display:block;aspect-ratio:16/9}
-.vt{font-weight:700;font-size:15px;margin:6px 0 0}
-/* checklist */
-.ringrow{display:flex;align-items:center;gap:16px;margin:0 0 8px}
-.prog{font-weight:800;color:var(--ak-accent);margin:0;font-size:16px}.prog small{display:block;font-weight:600;color:var(--ak-mut);font-size:13px}
+.ref{font-size:12px;color:var(--accent);font-weight:700;white-space:nowrap}
+h3.sec{margin:18px 0 8px;font-size:16px}
+
+/* answer block: manual vs sample vs gaps */
+.ans{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0 0;background:var(--card)}
+.ans h3{margin:0 0 8px;font-size:16px}
+.ans .k{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:10px 0 2px}
+.ans .k:first-of-type{margin-top:0}
+.ans p,.ans ul{margin:0;font-size:14px}.ans ul{padding-left:18px}
+.ans .smp{background:var(--svbg);color:var(--svtx);border-radius:6px;padding:6px 8px;margin-top:4px}
+.ans .gap{background:var(--nobg);color:var(--notx);border-radius:6px;padding:6px 8px;margin-top:4px}
+.ans .src{display:block;margin-top:10px;font-size:12px;font-weight:700;color:var(--accent)}
+.ans.unk{border-color:var(--pink);background:var(--pinkbg)}
+.ans.unk h3{color:var(--pinktx)}
+.ans.q{background:var(--bg);font-weight:600;font-size:14px}
+
+/* understand: recap */
+.recap{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.recap .n{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.recap p{margin:4px 0 6px;font-size:16px;font-weight:600;min-height:72px}
+.recap .nav{display:flex;align-items:center;gap:8px;margin-top:8px}
+.recap .nav .dots{flex:1;display:flex;gap:6px}
+.recap .dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}.recap .dots i.on{background:var(--teal)}
+.vids{display:grid;gap:12px}@media(min-width:620px){.vids{grid-template-columns:1fr 1fr}}
+video{width:100%;border-radius:8px;background:#0f1b2d;display:block;aspect-ratio:16/9}
+.vt{font-weight:600;font-size:14px;margin:6px 0 0}
+
+/* checks */
+.prog{font-weight:700;margin:0 0 4px;font-size:15px}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin:0 0 6px}.bar b{display:block;height:100%;width:0;background:var(--teal);transition:width .15s}
 ol.ck{list-style:none;margin:0;padding:0}
-ol.ck li{border-bottom:1px solid var(--ak-line);transition:opacity .3s}ol.ck li:last-child{border:0}
-ol.ck label{display:flex;gap:12px;align-items:flex-start;padding:12px 2px;cursor:pointer;min-height:56px}
-ol.ck input{width:28px;height:28px;margin:0;accent-color:var(--ak-teal);flex:none;transition:transform .35s var(--ak-spring)}
-ol.ck input:checked{transform:scale(1.15)}
-ol.ck li.ticked label{color:var(--ak-mut);text-decoration:line-through}
-.done{position:relative;text-align:center;background:var(--okbg);color:var(--oktx);border-radius:22px;padding:20px;margin:14px 0 0;overflow:hidden}
-.done b{display:block;font-size:26px;margin-top:6px}.done p{margin:4px 0 6px}
-.reset{background:none;border:0;color:var(--ak-accent);font-weight:700;text-decoration:underline;cursor:pointer;min-height:56px;padding:0 14px}
-/* wrong */
-.syms{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.sym{border:0;border-radius:20px;min-height:84px;padding:12px;background:var(--pinkbg);color:var(--pinktx);font-weight:800;font-size:16px;cursor:pointer;text-align:left;display:flex;gap:8px;align-items:center;transition:transform .35s var(--ak-spring),background .2s}
-.sym .e{font-size:26px}.sym:active{transform:scale(.94)}.sym[aria-pressed="true"]{background:#c2185b;color:#fff;transform:translateY(-3px)}
-.res{margin:14px 0 0;border-radius:18px;padding:14px 16px;background:var(--soft2);border:1px solid var(--ak-line)}
-.res h3{margin:0 0 6px;font-size:18px}.res ul{margin:0 0 8px;padding-left:20px}
-.first{background:var(--ak-soft);border-radius:12px;padding:10px 12px;margin:8px 0 0}
-.stop{margin:14px 0 0;background:#0f1b2d;color:#fff;border-radius:16px;padding:12px 14px;font-weight:700}
-/* today */
-.tag{display:inline-block;background:var(--svbg);color:var(--svtx);font-weight:700;font-size:12px;border-radius:99px;padding:3px 10px;margin:0 0 10px}
-.fld{margin:0 0 16px}.fld label{display:flex;justify-content:space-between;font-weight:700;margin:0 0 4px}
-.fld output{font-size:20px;font-weight:800;color:var(--ak-accent)}.fld small{display:block;color:var(--ak-mut);font-size:12px}
-input[type=range]{width:100%;height:44px;accent-color:var(--ak-teal);margin:0}
-.verdict{margin:14px 0 0;border-radius:22px;padding:16px}
-.verdict b.h{display:block;font-size:28px;line-height:1.1}.verdict p{margin:6px 0 0}
-.verdict.ok{background:var(--okbg);color:var(--oktx)}.verdict.warn{background:var(--warnbg);color:var(--warntx)}
-.nums{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 4px}
-.num{background:rgba(255,255,255,.55);border-radius:16px;padding:10px 12px}[data-theme=dark] .num{background:rgba(0,0,0,.25)}
-.num strong{display:block;font-size:30px;line-height:1.05;font-variant-numeric:tabular-nums}.num small{font-size:12px;font-weight:700}
-.spk{display:flex;align-items:center;gap:10px;margin:12px 0 0;font-size:12px;color:var(--ak-mut)}.spk svg{flex:none}
+ol.ck li{border-bottom:1px solid var(--line)}ol.ck li:last-child{border:0}
+ol.ck label{display:flex;gap:12px;align-items:flex-start;padding:10px 2px;cursor:pointer;min-height:48px;font-size:15px}
+ol.ck input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--teal);flex:none}
+ol.ck li.ticked label{color:var(--mut)}
+.done{display:flex;align-items:center;gap:10px;background:var(--okbg);color:var(--oktx);border-radius:10px;padding:12px 14px;margin:12px 0 0;font-weight:700}
+.done .i{width:24px;height:24px;stroke-width:2.2}
+.done span{flex:1}
+.link{background:none;border:0;color:var(--accent);font-weight:600;text-decoration:underline;cursor:pointer;min-height:44px;padding:0 6px}
+
+/* troubleshoot */
+.syms{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sym{display:flex;gap:8px;align-items:center;min-height:56px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);font-weight:600;font-size:14px;cursor:pointer;text-align:left}
+.sym .i{color:var(--accent)}
+.sym[aria-pressed=true]{border-color:var(--teal);background:var(--soft)}
+.stop{margin:12px 0 0;border-left:3px solid var(--magenta);background:var(--bg);border-radius:0 8px 8px 0;padding:10px 12px;font-size:14px;font-weight:600}
+
+/* operating data */
+.dsrc{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:13px;background:var(--svbg);color:var(--svtx);border-radius:8px;padding:8px 10px;margin:0 0 12px}
+.dsrc dt{font-weight:700}.dsrc dd{margin:0}
+.fld{margin:0 0 14px}.fld label{display:flex;justify-content:space-between;font-weight:600;margin:0 0 2px;font-size:14px}
+.fld output{font-weight:700;color:var(--accent)}.fld small{display:block;color:var(--mut);font-size:12px}
+input[type=range]{width:100%;height:36px;accent-color:var(--teal);margin:0}
+input[type=range]:disabled{opacity:.4}
+.verdict{border-radius:10px;padding:12px 14px;margin:12px 0 0}
+.verdict b.h{display:flex;align-items:center;gap:8px;font-size:20px}
+.verdict.ok{background:var(--okbg);color:var(--oktx)}.verdict.warn{background:var(--warnbg);color:var(--warntx)}.verdict.none{background:var(--nobg);color:var(--notx)}
+.verdict .k{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:10px 0 2px;opacity:.85}
+.verdict p{margin:0;font-size:14px}
+.verdict .src{display:block;margin-top:8px;font-size:12px;font-weight:700}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 0}
+.num{background:rgba(255,255,255,.55);border-radius:8px;padding:8px 10px}[data-theme=dark] .num{background:rgba(0,0,0,.25)}
+.num strong{display:block;font-size:22px;line-height:1.1;font-variant-numeric:tabular-nums}.num small{font-size:12px;font-weight:600}
+.spk{display:flex;align-items:center;gap:10px;margin:12px 0 0;font-size:12px;color:var(--mut)}.spk svg{flex:none}
+
 /* ask */
-.chat{border:1px solid var(--ak-line);border-radius:16px;background:var(--soft2);padding:12px;min-height:150px;max-height:44vh;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:88%;padding:9px 12px;border-radius:16px;font-size:15px;animation:ak-popup .45s var(--ak-spring) both}
-.me{align-self:flex-end;background:var(--me);color:#fff;border-bottom-right-radius:4px}
-.bot{align-self:flex-start;background:var(--ak-card);border:1px solid var(--ak-line);border-bottom-left-radius:4px}
-.bot.unk{border-color:var(--ak-pink);background:var(--pinkbg)}
-.typing{width:60%;padding:2px 0}.typing .ak-skel{margin:6px 0}
-form.ask{display:flex;gap:8px}form.ask input{flex:1;min-width:0;min-height:56px;padding:10px 14px;border:1px solid var(--ak-line);border-radius:16px;font:inherit;font-size:16px;background:var(--ak-card);color:var(--ak-ink)}
-form.ask .ak-btn{flex:none;padding:0 20px}
-/* engineer + manual */
-.f{background:#0f1b2d;color:#fff;border:1px solid var(--ak-line);border-radius:16px;padding:14px;font-size:19px;text-align:center;font-family:"Cambria Math","Times New Roman",serif;overflow-x:auto;white-space:nowrap}
-.eng h3{font-size:16px;margin:16px 0 4px;color:var(--ak-accent)}.eng p{margin:0 0 8px}
-table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text-align:left;padding:7px 6px;border-bottom:1px solid var(--ak-line);vertical-align:top}th{font-size:12px;color:var(--ak-mut);text-transform:uppercase;letter-spacing:.04em}
-.calc{background:var(--soft2);border-radius:16px;padding:12px 14px;margin:10px 0}
-.uout{font-size:22px;font-weight:800;color:var(--ak-accent)}
+.thread{display:flex;flex-direction:column}
+.thread:empty{display:none}
+form.ask{margin:0 0 4px}
 .man h3{font-size:15px;margin:14px 0 4px}.man p{font-size:14px;margin:0 0 8px}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-hx" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10" rx="2"/><path d="M2 9v6M22 9v6M4 10.5h16M4 13.5h16M9 7V4.5M15 17v2.5"/></symbol>
+<symbol id="i-go" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><path d="M4 6.5l1.5 1.5L8 5.5M4 12.5l1.5 1.5L8 11.5M4 18.5l1.5 1.5L8 17.5M11 7h9M11 13h9M11 19h9"/></symbol>
+<symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0 5 5L13 18a2.1 2.1 0 0 1-3-3l6.5-6.5a4 4 0 0 0-2-2z"/><path d="M14.5 6.5L17 4"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M7 15l4-4 3 3 5-6"/></symbol>
+<symbol id="i-ask" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M12 13v.01M10 8.5a2 2 0 1 1 2.8 1.8c-.5.2-.8.7-.8 1.2"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+<symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8.5 12h1M14.5 12h1M8.5 16h1M14.5 16h1"/></symbol>
+<symbol id="i-tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24"><path d="M4 17l5-5 4 4 7-8M15 8h5v5"/></symbol>
+<symbol id="i-temp" viewBox="0 0 24 24"><path d="M10 14V5a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z"/><path d="M12 10v6"/></symbol>
+<symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5s6 6.5 6 10.5a6 6 0 0 1-12 0c0-4 6-10.5 6-10.5z"/></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+<symbol id="i-prev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h7"/></symbol>
+</defs></svg>
 <div id="app">
-<p class="demo">Demo with a made-up machine and a sample manual. Not a real product or company.</p>
-<header class="ak-hero"><div class="wrap">
-<div class="top"><span class="brand">Ask <i>Avisha</i></span><button class="ak-toggle-theme" type="button" data-ak-theme-toggle aria-pressed="false" aria-label="Dark mode"><span class="ak-tt-track" aria-hidden="true"><span class="ak-tt-knob"></span></span></button></div>
-<div class="mc ak-glass"><div class="ic" aria-hidden="true">🔥</div><div>
-<h1>HX-101</h1><p class="sub">Shell-and-tube heat exchanger · Example Process Equipment (fictional)</p>
-<span class="pill"><i></i>Running normally</span></div></div>
-<p class="lead">Tap a tile. <span>Answers in one second.</span></p>
-<button class="ak-btn ak-btn-glass herobtn" type="button" data-open="manual"><span aria-hidden="true">📄</span>Read the sample manual</button>
+<p class="demo">Demo: made-up machine and sample manual. Not a real product.</p>
+<header><div class="wrap">
+<div class="hd">
+<span class="eq" aria-hidden="true"><svg class="i"><use href="#i-hx"/></svg></span>
+<div class="t"><h1>HX-101 <span class="badge">DEMO</span></h1>
+<p class="meta">Shell-and-tube heat exchanger · <a href="#" data-open="manual">Sample manual</a></p></div>
+<button class="iconbtn" type="button" id="theme" aria-pressed="false" aria-label="Dark theme"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg></button>
+</div>
+<div class="status"><b>Simulated status: normal</b><span>Demo data · updated: sample</span></div>
 </div></header>
+
 <main class="wrap">
-<div class="ak-bento ak-reveal">
-<button class="ak-tile ak-tilt ak-w2 t1" type="button" data-open="watch"><span class="e" aria-hidden="true">▶️</span><span class="go" aria-hidden="true">↗</span><span class="badge">3-point recap + 2 videos</span><b>Watch it work</b><span class="s">Two short videos</span></button>
-<button class="ak-tile ak-tilt t2" type="button" data-open="check"><span class="e" aria-hidden="true">✅</span><span class="go" aria-hidden="true">↗</span><b>Start-up checklist</b><span class="s">Tick, then start</span></button>
-<button class="ak-tile ak-tilt t3" type="button" data-open="wrong"><span class="e" aria-hidden="true">⚠️</span><span class="go" aria-hidden="true">↗</span><b>Something's wrong?</b><span class="s">Find likely causes</span></button>
-<button class="ak-tile ak-tilt t4" type="button" data-open="today"><span class="e" aria-hidden="true">📈</span><span class="go" aria-hidden="true">↗</span><b>Is today normal?</b><span class="s">Check today's readings</span></button>
-<button class="ak-tile ak-tilt t5" type="button" data-open="ask"><span class="e" aria-hidden="true">💬</span><span class="go" aria-hidden="true">↗</span><b>Ask a question</b><span class="s">Answers from manual</span></button>
-<button class="ak-tile ak-tilt ak-w2 t6" type="button" data-open="eng"><span class="e" aria-hidden="true">🔧</span><span class="go" aria-hidden="true">↗</span><b>Engineer view</b><span class="s">Formulas and data</span></button>
+<p class="lead">Explore the equipment. Find the guidance you need.</p>
+<form class="card askbox" id="qform" role="search">
+<label for="qmain">What would you like to know about HX-101?</label>
+<div class="row"><input id="qmain" type="text" placeholder="e.g. Why is the pressure drop rising?" autocomplete="off"><button class="btn btn-primary" type="submit">Ask <svg class="i" aria-hidden="true"><use href="#i-send"/></svg></button></div>
+<div class="chips" aria-label="Example questions">
+<button class="chip q" type="button">Why is the pressure drop rising?</button>
+<button class="chip q" type="button">Which side do I start first?</button>
+<button class="chip q" type="button">Can I clean it while running?</button>
 </div>
-<section class="gallery ak-reveal" id="gallery" aria-labelledby="galh">
-<h2 id="galh">Style gallery</h2>
-<p>Avisha's chosen button set and where each one is used on this page. The samples below are pictures, not buttons.</p>
-<div class="gal" aria-hidden="false">
-<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-primary">Learn more <span class="ak-arrow">→</span></span></div><b>Dark pill with arrow <code>.ak-btn-primary</code></b><p>The one main action on a screen: "Learn more" at the bottom, "Check" in Is today normal?, "Ask" in the question box.</p></div>
-<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-split"><span class="ak-split-label">Contact support</span><span class="ak-split-arrow">↗</span></span></div><b>Split pill with arrow bubble <code>.ak-btn-split</code></b><p>Reaching a person: "Contact support" in Something's wrong?</p></div>
-<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-icon"><span class="ak-ic"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch now</span><span class="ak-btn ak-btn-icon"><span class="ak-ic ak-ic-navy"><svg viewBox="0 0 24 24"><path d="M5 5h14v2H5zm0 6h14v2H5zm0 6h9v2H5z"/></svg></span>Cheat sheet</span><span class="ak-btn ak-btn-icon"><span class="ak-ic ak-ic-pink"><svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.2V17h16V7.2l-8 5.3z"/></svg></span>Contact us</span></div><b>Icon-circle pills <code>.ak-btn-icon</code></b><p>Extra actions inside the sheets: Watch it work, Engineer view, Ask a question.</p></div>
-<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-ai"><svg class="ak-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg>Ask Avisha</span></div><b>Glow gradient <code>.ak-btn-ai</code></b><p>Only for the single AI action: the floating "Ask Avisha" button.</p></div>
-<div class="gi"><div class="spec dark" aria-hidden="true"><span class="ak-btn ak-btn-glass">Read the sample manual</span></div><b>Glass <code>.ak-btn-glass</code></b><p>Only on the dark header at the top.</p></div>
-<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-toggle-theme" aria-pressed="false"><span class="ak-tt-track"><span class="ak-tt-knob"></span></span></span><span class="ak-toggle-theme" aria-pressed="true"><span class="ak-tt-track"><span class="ak-tt-knob"></span></span></span></div><b>Day/night switch <code>.ak-toggle-theme</code></b><p>Top right: light or dark theme (starts with your device setting).</p></div>
-<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-icon"><span class="ak-ic">↑</span>Hover me</span></div><b>Lift on hover</b><p>Every button and tile rises a little under the mouse and presses in when tapped.</p></div>
+</form>
+
+<h2 class="lbl">Tasks</h2>
+<div class="tasks">
+<button class="task" type="button" data-open="watch"><span class="tl"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg><span>Understand operation</span><svg class="i go" aria-hidden="true"><use href="#i-go"/></svg></span><span class="s">3-point recap and 2 videos</span></button>
+<button class="task" type="button" data-open="check"><span class="tl"><svg class="i" aria-hidden="true"><use href="#i-list"/></svg><span>Review start-up checks</span><svg class="i go" aria-hidden="true"><use href="#i-go"/></svg></span><span class="s">8 checks from the manual</span></button>
+<button class="task em" type="button" data-open="wrong"><span class="tl"><svg class="i" aria-hidden="true"><use href="#i-tool"/></svg><span>Troubleshoot</span><svg class="i go" aria-hidden="true"><use href="#i-go"/></svg></span><span class="s">Likely causes, what to check</span></button>
+<button class="task" type="button" data-open="today"><span class="tl"><svg class="i" aria-hidden="true"><use href="#i-chart"/></svg><span>Check operating data</span><svg class="i go" aria-hidden="true"><use href="#i-go"/></svg></span><span class="s">Compare readings to baseline</span></button>
 </div>
+
+<details class="card tech" id="tech">
+<summary><svg class="i" aria-hidden="true"><use href="#i-calc"/></svg><span>Technical details</span><svg class="i go" aria-hidden="true"><use href="#i-go"/></svg></summary>
+<div class="tbody">
+<p class="note" style="margin-top:12px">For engineers. From manual section 10. Values marked <span class="sv">sample</span> are illustrative, not real specifications.</p>
+<h3>Overall heat transfer coefficient <span class="ref">§10.1</span></h3>
+<div class="f">1/U = 1/h<sub>o</sub> + R<sub>f,o</sub> + x<sub>w</sub>/k<sub>w</sub> + R<sub>f,i</sub> + 1/h<sub>i</sub></div>
+<p class="note" style="margin-top:6px">Assumption: thin-wall form, all terms on one area. For thick tubes on the outside area, multiply the inside terms (R<sub>f,i</sub>, 1/h<sub>i</sub>) by d<sub>o</sub>/d<sub>i</sub> and use d<sub>o</sub>·ln(d<sub>o</sub>/d<sub>i</sub>)/(2k<sub>w</sub>) for the wall.</p>
+<h3>What fouling does <span class="ref">§10.2</span></h3>
+<p>Fouling adds the resistances R<sub>f,o</sub> and R<sub>f,i</sub>, so U falls. At the same area and temperature difference, the heat duty Q = U·A·ΔT<sub>lm</sub> falls in the same proportion.</p>
+<div class="calc"><label for="rf">Fouling resistance on each side: <output id="rfo">0.00020</output> m²·K/W</label>
+<input type="range" id="rf" min="0" max="0.001" step="0.00005" value="0.0002">
+<div>U = <span class="uout" id="uo">678</span> W/m²·K · <span id="up">73% of clean</span> (clean U ≈ <span id="uc">930</span>, with the <span class="sv">sample</span> data below)</div></div>
+<h3>What baffles do <span class="ref">§2.2, §10.3</span></h3>
+<p>Closer baffle spacing raises the shell-side velocity, so h<sub>o</sub> goes up, and the shell-side pressure drop goes up too. Spacing is a trade-off fixed at design. Baffles also support the tubes against vibration.</p>
+<h3>Design data <span class="sv">sample values</span></h3>
+<table><tr><th>Item</th><th>Value</th></tr>
+<tr><td>Shell-side film coefficient h<sub>o</sub></td><td>1,500 W/m²·K <span class="sv">sample</span></td></tr>
+<tr><td>Tube-side film coefficient h<sub>i</sub></td><td>3,000 W/m²·K <span class="sv">sample</span></td></tr>
+<tr><td>Tube wall x<sub>w</sub>, k<sub>w</sub> (stainless steel)</td><td>1.2 mm, 16 W/m·K <span class="sv">sample</span></td></tr>
+<tr><td>Fouling allowance R<sub>f,o</sub> and R<sub>f,i</sub></td><td>0.0002 m²·K/W each <span class="sv">sample</span></td></tr>
+<tr><td>U clean / with fouling allowance</td><td>≈ 930 / ≈ 678 W/m²·K (calculated)</td></tr>
+<tr><td>Tube-side pressure drop, clean, design flow</td><td>0.40 bar <span class="sv">sample</span></td></tr>
+<tr><td>Cleaning trigger</td><td>1.5 × clean pressure drop <span class="sv">sample</span></td></tr>
+<tr><td>Design pressure and temperature</td><td>Not in this manual: see the nameplate</td></tr>
+</table>
+</div>
+</details>
+
+<section class="card about" id="about" aria-labelledby="abh">
+<h2 id="abh">About Ask Avisha</h2>
+<p>Ask Avisha puts an equipment assistant behind a QR code on the machine. It answers only from the maker's approved manual and says so when the manual doesn't cover something.</p>
+<ol>
+<li>The company uploads its manual.</li>
+<li>Avisha prepares the answers, checklists and short explainer videos from it.</li>
+<li>The company's own engineer reviews and approves the content before it goes live.</li>
+<li>People scan the QR code on the machine; unanswered questions go back to the company in a weekly report.</li>
+</ol>
+<div class="acts"><a class="btn btn-primary" href="mailto:info@avisha.ai?subject=Ask%20Avisha%20for%20our%20equipment">Contact Avisha <svg class="i" aria-hidden="true"><use href="#i-send"/></svg></a></div>
 </section>
 </main>
-<footer class="ak-reveal">
-<p class="more"><a class="ak-btn ak-btn-primary" href="https://avisha.ai" aria-label="Learn more about Avisha">Learn more <span class="ak-arrow" aria-hidden="true">→</span></a></p>
-<p class="ap">Approved by: (company engineer) · Powered by Avisha</p>
-<p>How it works: QR on the machine → tap → answers from your own manual.</p>
-<p>Demo only; HX-101 and Example Process Equipment are made up. <a href="https://avisha.ai">avisha.ai</a> · <a href="https://lwa.avisha.ai">Learn with Avisha</a> · <a href="mailto:info@avisha.ai">info@avisha.ai</a> · <a href="#gallery">Style gallery</a></p>
+<footer>
+<p>Content approved by: (company engineer) · Powered by Avisha</p>
+<p>Demo only; HX-101 and Example Process Equipment are made up. <a href="https://avisha.ai">avisha.ai</a> · <a href="https://lwa.avisha.ai">Learn with Avisha</a> · <a href="mailto:info@avisha.ai">info@avisha.ai</a></p>
 </footer>
 </div>
 
-<div class="ak-dial" data-ak-dial>
-<div class="ak-dial-scrim" aria-hidden="true"></div>
-<ul class="ak-dial-menu" id="dialmenu" aria-label="Quick actions">
-<li><button class="ak-dial-item" type="button" data-open="ask">Ask a question<span class="ak-ico" aria-hidden="true">💬</span></button></li>
-<li><button class="ak-dial-item" type="button" data-open="wrong">Something's wrong?<span class="ak-ico" aria-hidden="true">⚠️</span></button></li>
-<li><button class="ak-dial-item" type="button" data-open="today">Is today normal?<span class="ak-ico" aria-hidden="true">📈</span></button></li>
-<li><button class="ak-dial-item" type="button" data-open="check">Start-up checklist<span class="ak-ico" aria-hidden="true">✅</span></button></li>
-</ul>
-<button class="ak-btn ak-btn-ai ak-fab" type="button" aria-expanded="false" aria-controls="dialmenu"><svg class="ak-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg><span class="ak-fab-text">Ask Avisha</span></button>
-</div>
+<button class="launch" id="launch" type="button" data-open="ask"><svg class="i" aria-hidden="true"><use href="#i-chat"/></svg>Ask Avisha</button>
 
-<div class="ak-scrim" id="sheet" aria-hidden="true">
-<div class="ak-sheet" role="dialog" aria-modal="true" aria-labelledby="sht" tabindex="-1">
-<div class="ak-handle" aria-hidden="true"></div>
-<div class="ak-sheet-head"><h2 id="sht">Ask Avisha</h2><button class="ak-x" type="button" aria-label="Close">✕</button></div>
-<div class="ak-sheet-body" id="sb">
+<div class="scrim" id="sheet" aria-hidden="true">
+<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sht" tabindex="-1">
+<div class="shead"><h2 id="sht">Ask Avisha</h2><button class="x" type="button" id="close" aria-label="Close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+<div class="sbody" id="sb">
 
 <div class="pane" data-p="watch" hidden>
-<p class="note">Engineer-checked explainers from Learn with Avisha. First the 3-point recap (tap right for next, left for back), then the videos. Videos need an internet connection.</p>
-<div class="acts"><button class="ak-btn ak-btn-icon" type="button" id="watchnow"><span class="ak-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch now</button></div>
-<div class="ak-stories" id="st" role="region" aria-roledescription="story cards" aria-label="What you will learn: 3 points">
-<div class="ak-bars" aria-hidden="true"></div>
-<button class="ak-pause" type="button" aria-label="Pause the cards">❚❚</button>
-<div class="ak-story"><span class="k">Recap 1 of 3</span><span class="big" aria-hidden="true">🔁</span><p>The two fluids flow in opposite directions (countercurrent). That moves the most heat for this size of exchanger.</p><span class="r">Manual §1</span></div>
-<div class="ak-story"><span class="k">Recap 2 of 3</span><span class="big" aria-hidden="true">🧱</span><p>Fouling is a deposit on the tubes. Less heat gets through, and the pressure drop often rises.</p><span class="r">Manual §6.1–6.2</span></div>
-<div class="ak-story"><span class="k">Recap 3 of 3</span><span class="big" aria-hidden="true">📊</span><p>Compare readings with the clean baseline and watch the trend. One reading is not enough.</p><span class="r">Manual §5.2, §6.3</span></div>
-<button class="ak-tap prev" type="button" aria-label="Previous card"></button><button class="ak-tap next" type="button" aria-label="Next card"></button>
-<span class="hint" aria-hidden="true">Tap right for next · hold to pause</span>
-<button class="replay" type="button" id="replay">↺ Replay recap</button>
-<span class="ak-sr ak-story-live" aria-live="polite"></span>
+<p class="note">Engineer-checked explainers from Learn with Avisha. First a 3-point recap, then the videos (they need an internet connection).</p>
+<div class="recap" id="recap" aria-live="polite">
+<span class="n" id="rn">Recap 1 of 3</span>
+<p id="rt"></p>
+<span class="ref" id="rs"></span>
+<div class="nav"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+<button class="btn btn-secondary" type="button" id="rprev" aria-label="Previous point"><svg class="i" aria-hidden="true"><use href="#i-prev"/></svg></button>
+<button class="btn btn-secondary" type="button" id="rnext">Next <svg class="i" aria-hidden="true"><use href="#i-go"/></svg></button></div>
 </div>
-<h3 class="sec">Now watch</h3>
+<h3 class="sec">Videos</h3>
 <div class="vids">
 <div><video controls preload="none" playsinline poster="https://lwa.avisha.ai/media/lwa_s1e01_the_flip_3d_poster.jpg" src="https://lwa.avisha.ai/media/lwa_s1e01_the_flip_3d.mp4"></video><p class="vt">1. Which way the fluids flow</p></div>
 <div><video controls preload="none" playsinline poster="https://lwa.avisha.ai/media/lwa_s1e02_the_fouling_problem_3d_poster.jpg" src="https://lwa.avisha.ai/media/lwa_s1e02_the_fouling_problem_3d.mp4"></video><p class="vt">2. The fouling problem</p></div>
@@ -365,9 +317,9 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 </div>
 
 <div class="pane" data-p="check" hidden>
-<p class="note">From the HX-101 sample manual, sections 3, 4 and 8. Tick each step as you go.</p>
-<div class="ringrow"><div class="ak-ring" id="ring" aria-hidden="true"><svg viewBox="0 0 84 84"><circle class="ak-ring-bg" cx="42" cy="42" r="36"/><circle class="ak-ring-fg" cx="42" cy="42" r="36"/></svg><span class="ak-ring-val">0/8</span></div>
-<p class="prog" id="prog" aria-live="polite">0 of 8 done<small>Ticks fill the ring</small></p></div>
+<p class="note">From the HX-101 sample manual, sections 3, 4 and 8. Tick each check as you review it.</p>
+<p class="prog" id="prog" aria-live="polite">0 of 8 reviewed</p>
+<div class="bar" aria-hidden="true"><b id="barb"></b></div>
 <ol class="ck" id="check">
 <li><label><input type="checkbox"><span>Permit or start-up sign-off in place. You know which fluid is on the tube side and which on the shell side. <span class="ref">§3.1</span></span></label></li>
 <li><label><input type="checkbox"><span>Bolts, gaskets, insulation and guards in place. No visible leaks. <span class="ref">§3.2</span></span></label></li>
@@ -378,82 +330,51 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 <li><label><input type="checkbox"><span>Once warm, check for leaks again. Record pressure drops and temperatures as the baseline. <span class="ref">§4.3</span></span></label></li>
 <li><label><input type="checkbox"><span>Never go above the design pressure or temperature on the nameplate. <span class="ref">§8.1</span></span></label></li>
 </ol>
-<div class="done ak-check" id="done" hidden role="status">
-<svg viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="34"/><path d="M21 37l10 10 20-22"/></svg>
-<b>All done ✓</b><p>Start-up checks complete. Ready to run.</p>
-<button class="reset" id="reset" type="button">Start again</button>
-</div>
+<div class="done" id="done" hidden role="status"><svg class="i" aria-hidden="true"><use href="#i-tick"/></svg><span>All checks reviewed</span><button class="link" id="reset" type="button">Start again</button></div>
+<p class="note" style="margin-top:12px">This list covers the manual's start-up checks only. Your site procedure and permit come first.</p>
 </div>
 
 <div class="pane" data-p="wrong" hidden>
-<p class="note">Tap what you see. Likely causes come only from the HX-101 sample manual.</p>
+<p class="note">Choose what you see. Causes and checks come only from the HX-101 sample manual.</p>
 <div class="syms">
-<button class="sym" type="button" data-s="dp" aria-pressed="false"><span class="e" aria-hidden="true">📈</span>Pressure drop rising</button>
-<button class="sym" type="button" data-s="hot" aria-pressed="false"><span class="e" aria-hidden="true">🌡️</span>Outlet not hot enough</button>
-<button class="sym" type="button" data-s="leak" aria-pressed="false"><span class="e" aria-hidden="true">💧</span>Leak or drip</button>
-<button class="sym" type="button" data-s="noise" aria-pressed="false"><span class="e" aria-hidden="true">🔊</span>Strange noise</button>
+<button class="sym" type="button" data-s="dp" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-up"/></svg>Pressure drop rising</button>
+<button class="sym" type="button" data-s="hot" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-temp"/></svg>Outlet not hot enough</button>
+<button class="sym" type="button" data-s="leak" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-drop"/></svg>Leak or drip</button>
+<button class="sym" type="button" data-s="noise" aria-pressed="false"><svg class="i" aria-hidden="true"><use href="#i-sound"/></svg>Strange noise</button>
 </div>
 <div id="symr" aria-live="polite"></div>
-<p class="stop">If unsure, stop and call support: make it safe as your site procedure says, then call Example Process Equipment support.</p>
-<div class="acts" style="margin-top:14px"><a class="ak-btn ak-btn-split" href="mailto:info@avisha.ai?subject=HX-101%20demo%3A%20support"><span class="ak-split-label">Contact support</span><span class="ak-split-arrow" aria-hidden="true">↗</span></a></div>
-<p class="small">Demo: the machine maker is made up, so this button emails Avisha (info@avisha.ai).</p>
+<p class="stop">If unsure, stop: make it safe as your site procedure says, then contact Example Process Equipment support.</p>
+<div class="acts"><a class="btn btn-secondary" href="mailto:info@avisha.ai?subject=HX-101%20demo%3A%20support"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Contact support</a></div>
+<p class="note" style="margin-top:8px">Demo: the machine maker is made up, so this emails Avisha (info@avisha.ai).</p>
 </div>
 
 <div class="pane" data-p="today" hidden>
-<span class="tag">Sample values · demo readings</span>
-<p class="note">Enter today's readings at design flow. Compared with the sample clean baseline in manual §5.2–5.4.</p>
+<dl class="dsrc"><dt>Data source</dt><dd id="dsrc">Sample readings (demo, not from a live sensor)</dd><dt>Updated</dt><dd id="dtime">Sample timestamp · not live</dd></dl>
+<div id="dform">
+<p class="note">Enter readings at design flow. They are compared with the sample clean baseline in manual §5.2–5.4.</p>
 <div class="fld"><label for="dpi">Tube-side pressure drop <output id="dpo">0.42 bar</output></label>
 <input type="range" id="dpi" min="0.20" max="0.80" step="0.01" value="0.42"><small>Sample baseline 0.40 bar · normal up to 0.48 bar (+20%)</small></div>
 <div class="fld"><label for="ti">Cold-side outlet temperature <output id="to">60.0 °C</output></label>
 <input type="range" id="ti" min="50" max="66" step="0.5" value="60"><small>Sample baseline 60 °C · normal down to 57 °C (−3 °C)</small></div>
-<button class="ak-btn ak-btn-primary ak-wide" id="chk" type="button">Check</button>
-<div class="chips"><button class="chip" type="button" id="dnorm">Load a normal day</button><button class="chip x2" type="button" id="dfoul">Try a fouled day</button></div>
+<button class="btn btn-primary btn-wide" id="chk" type="button">Check readings</button>
+</div>
+<div class="chips wrap-ok"><button class="chip" type="button" id="dnorm">Load a normal day</button><button class="chip" type="button" id="dfoul">Load a fouled day</button><button class="chip" type="button" id="dnone" aria-pressed="false">Show "no data"</button></div>
 <div id="verdict" aria-live="polite"></div>
-<div class="spk"><svg id="spk" width="200" height="48" viewBox="0 0 200 48" role="img" aria-label="Pressure drop over the last 10 sample days"></svg><span>Pressure drop, last 10 sample days (today last). Dashed: baseline and +20%.</span></div>
+<div class="spk" id="spkw"><svg id="spk" width="200" height="48" viewBox="0 0 200 48" role="img" aria-label="Pressure drop over the last 10 sample days"></svg><span>Pressure drop, last 10 sample days (today last). Dashed: baseline and +20%.</span></div>
 </div>
 
 <div class="pane" data-p="ask" hidden>
-<p class="note">Answers come only from the manual approved by Example Process Equipment's engineer. If it isn't in the manual, it says so.</p>
-<div class="chat" id="chat" aria-live="polite"><div class="msg bot">Hi. Ask me anything about operating HX-101. I answer only from its approved manual.</div></div>
-<div class="chips" id="chips">
-<button class="chip q" type="button">Why is the pressure drop rising?</button>
+<p class="note">Answers come only from the HX-101 manual approved by the maker's engineer. If the manual doesn't cover it, the answer says so.</p>
+<form class="ask row" id="ask"><input id="q" type="text" placeholder="Type a question…" aria-label="Your question" autocomplete="off"><button class="btn btn-primary" type="submit">Ask <svg class="i" aria-hidden="true"><use href="#i-send"/></svg></button></form>
+<div class="chips wrap-ok" id="chips">
 <button class="chip q" type="button">What does fouling look like?</button>
 <button class="chip q" type="button">What are baffles for?</button>
-<button class="chip q" type="button">Can I clean it while running?</button>
-<button class="chip q" type="button">Which side do I start first?</button>
 <button class="chip q" type="button">The outlet isn't getting hot enough</button>
-<button class="chip q x2" type="button">What's the warranty?</button>
+<button class="chip q" type="button">What is the maximum pressure?</button>
+<button class="chip q" type="button">What's the warranty?</button>
 </div>
-<form class="ask" id="ask"><input id="q" type="text" placeholder="Type a question…" aria-label="Your question" autocomplete="off"><button class="ak-btn ak-btn-primary" type="submit">Ask <span class="ak-arrow" aria-hidden="true">→</span></button></form>
-<div class="acts" style="margin-top:14px"><a class="ak-btn ak-btn-icon" href="mailto:info@avisha.ai?subject=Ask%20Avisha%20for%20our%20machines"><span class="ak-ic ak-ic-pink" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.2V17h16V7.2l-8 5.3z"/></svg></span>Contact us</a></div>
-<p class="small">Want Ask Avisha for your own machines? This emails Avisha (info@avisha.ai).</p>
-<p class="note" style="margin-top:10px">Demo: answers are picked from a small built-in list by keywords. In the real product every question is logged, and unanswered ones go to the company in a weekly report.</p>
-</div>
-
-<div class="pane eng" data-p="eng" hidden>
-<div class="acts"><button class="ak-btn ak-btn-icon" type="button" id="cheat"><span class="ak-ic ak-ic-navy" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v2H5zm0 6h14v2H5zm0 6h9v2H5z"/></svg></span>Cheat sheet</button></div>
-<p class="note">For engineers. From manual section 10. Values marked <span class="sv">sample</span> are illustrative, not real specifications.</p>
-<h3>Overall heat transfer coefficient</h3>
-<div class="f">1/U = 1/h<sub>o</sub> + R<sub>f,o</sub> + x<sub>w</sub>/k<sub>w</sub> + R<sub>f,i</sub> + 1/h<sub>i</sub></div>
-<p class="note" style="margin-top:6px">Thin-wall form, all terms on one area. For thick tubes on the outside area, multiply the inside terms (R<sub>f,i</sub>, 1/h<sub>i</sub>) by d<sub>o</sub>/d<sub>i</sub> and use d<sub>o</sub>·ln(d<sub>o</sub>/d<sub>i</sub>)/(2k<sub>w</sub>) for the wall. <span class="ref">§10.1</span></p>
-<h3>What fouling does</h3>
-<p>Fouling adds the resistances R<sub>f,o</sub> and R<sub>f,i</sub>, so U falls. At the same area and temperature difference, the heat duty Q = U·A·ΔT<sub>lm</sub> falls in the same proportion. <span class="ref">§10.2</span></p>
-<div class="calc"><label for="rf"><b>Try it:</b> fouling resistance on each side <output id="rfo">0.00020</output> m²·K/W</label>
-<input type="range" id="rf" min="0" max="0.001" step="0.00005" value="0.0002">
-<div>U = <span class="uout" id="uo">678</span> W/m²·K · <span id="up">73% of clean</span> (clean U ≈ <span id="uc">930</span>, with the <span class="sv">sample</span> data below)</div></div>
-<h3>What baffles do</h3>
-<p>Closer baffle spacing raises the shell-side velocity, so h<sub>o</sub> goes up, and the shell-side pressure drop goes up too. Spacing is a trade-off fixed at design. Baffles also support the tubes against vibration. <span class="ref">§2.2, §10.3</span></p>
-<h3 id="ds" tabindex="-1">Design data <span class="sv">sample values</span></h3>
-<table><tr><th>Item</th><th>Value</th></tr>
-<tr><td>Shell-side film coefficient h<sub>o</sub></td><td>1,500 W/m²·K <span class="sv">sample</span></td></tr>
-<tr><td>Tube-side film coefficient h<sub>i</sub></td><td>3,000 W/m²·K <span class="sv">sample</span></td></tr>
-<tr><td>Tube wall x<sub>w</sub>, k<sub>w</sub> (stainless steel)</td><td>1.2 mm, 16 W/m·K <span class="sv">sample</span></td></tr>
-<tr><td>Fouling allowance R<sub>f,o</sub> and R<sub>f,i</sub></td><td>0.0002 m²·K/W each <span class="sv">sample</span></td></tr>
-<tr><td>U clean / with fouling allowance</td><td>≈ 930 / ≈ 678 W/m²·K (calculated)</td></tr>
-<tr><td>Tube-side pressure drop, clean, design flow</td><td>0.40 bar <span class="sv">sample</span></td></tr>
-<tr><td>Cleaning trigger</td><td>1.5 × clean pressure drop <span class="sv">sample</span></td></tr>
-<tr><td>Design pressure and temperature</td><td>See the nameplate</td></tr>
-</table>
+<div class="thread" id="thread" aria-live="polite"></div>
+<p class="note" style="margin-top:14px">Demo: answers are picked from a small built-in list by keywords. In the real product every question is logged, and unanswered ones go to the company in a weekly report.</p>
 </div>
 
 <div class="pane man" data-p="manual" hidden>
@@ -483,286 +404,173 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 </div></div></div>
 
 <script>
-/* Avisha design kit v2 (27 Nov 2026). No libraries, no tracking. Exposes window.AK. See README.md. */
-(function(w,d){"use strict";
-var mq=function(q){return w.matchMedia?w.matchMedia(q):{matches:false};};
-var RM=mq("(prefers-reduced-motion: reduce)"),FINE=mq("(hover: hover) and (pointer: fine)");
-function rm(){return !!RM.matches;}
+(function(){"use strict";
+var d=document;
+function $(id){return d.getElementById(id);}
 function each(l,f){Array.prototype.forEach.call(l,f);}
-function $(x){return typeof x==="string"?d.getElementById(x):x;}
-d.documentElement.classList.add("ak-js");
-var AK={reduced:rm};
-
-/* ripple on tap */
-d.addEventListener("pointerdown",function(e){
-var t=e.target.closest&&e.target.closest(".ak-tile,.ak-btn,.ak-dial-item,[data-ak-ripple]");if(!t||rm()||t.classList.contains("ak-btn-split"))return;
-var r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.2,c=d.createElement("span");
-c.className="ak-rip";c.setAttribute("aria-hidden","true");
-c.style.cssText="width:"+s+"px;height:"+s+"px;left:"+(e.clientX-r.left-s/2)+"px;top:"+(e.clientY-r.top-s/2)+"px";
-t.appendChild(c);setTimeout(function(){if(c.parentNode)c.parentNode.removeChild(c);},650);});
-
-/* 3D tilt (desktop pointers only) */
-var tilted=null;
-function untilt(t){t.classList.remove("ak-tilting");t.style.removeProperty("--rx");t.style.removeProperty("--ry");}
-d.addEventListener("pointermove",function(e){
-if(e.pointerType!=="mouse"||!FINE.matches||rm())return;
-var t=e.target.closest&&e.target.closest(".ak-tilt");
-if(tilted&&tilted!==t)untilt(tilted);tilted=t;if(!t)return;
-var r=t.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
-t.classList.add("ak-tilting");t.style.setProperty("--ry",(px*10).toFixed(2)+"deg");t.style.setProperty("--rx",(-py*10).toFixed(2)+"deg");});
-d.addEventListener("pointerleave",function(){if(tilted){untilt(tilted);tilted=null;}});
-
-/* bottom sheet */
-var openS=null,opener=null,inerted=[];
-function sheetOpen(sc,from){sc=$(sc);if(!sc)return;if(openS&&openS!==sc)sheetClose(true);if(openS===sc)return;
-closeDials();from=from||d.activeElement;
-var dl=from&&from.closest&&from.closest(".ak-dial");opener=dl?dl.querySelector(".ak-fab"):from;openS=sc;
-inerted=[];each(d.body.children,function(c){if(c!==sc&&c.tagName!=="SCRIPT"&&!c.hasAttribute("inert")){c.setAttribute("inert","");c.setAttribute("aria-hidden","true");inerted.push(c);}});
-sc.setAttribute("aria-hidden","false");void sc.offsetWidth;sc.classList.add("open");d.body.style.overflow="hidden";
-var x=sc.querySelector(".ak-x")||sc.querySelector(".ak-sheet");setTimeout(function(){if(openS===sc)x.focus();},60);
-sc.dispatchEvent(new CustomEvent("ak:open"));}
-function sheetClose(quiet){var sc=openS;if(!sc)return;openS=null;
-sc.classList.remove("open");sc.setAttribute("aria-hidden","true");
-var p=sc.querySelector(".ak-sheet");if(p){p.style.removeProperty("--dy");p.classList.remove("ak-dragging");}
-each(inerted,function(c){c.removeAttribute("inert");c.removeAttribute("aria-hidden");});inerted=[];d.body.style.overflow="";
-sc.dispatchEvent(new CustomEvent("ak:close"));if(!quiet&&opener&&opener.focus)opener.focus();}
-AK.sheet={open:sheetOpen,close:function(){sheetClose();},current:function(){return openS;}};
-/* drag the handle or header down to close */
-var drag=null;
-d.addEventListener("pointerdown",function(e){if(!openS)return;var h=e.target.closest&&e.target.closest(".ak-handle,.ak-sheet-head");
-if(!h||e.target.closest("button")||!openS.contains(h))return;var p=openS.querySelector(".ak-sheet");
-drag={p:p,y:e.clientY,dy:0,id:e.pointerId};p.classList.add("ak-dragging");try{h.setPointerCapture(e.pointerId);}catch(_){}});
-d.addEventListener("pointermove",function(e){if(!drag||e.pointerId!==drag.id)return;drag.dy=Math.max(0,e.clientY-drag.y);drag.p.style.setProperty("--dy",drag.dy+"px");});
-function endDrag(e){if(!drag||e.pointerId!==drag.id)return;var g=drag;drag=null;g.p.classList.remove("ak-dragging");
-if(g.dy>110)sheetClose();else g.p.style.removeProperty("--dy");}
-d.addEventListener("pointerup",endDrag);d.addEventListener("pointercancel",endDrag);
-
-/* speed dial */
-var dials=[];
-function dial(el){el=$(el);if(!el||el._ak)return el&&el._ak;
-var fab=el.querySelector(".ak-fab"),menu=el.querySelector(".ak-dial-menu"),items=el.querySelectorAll(".ak-dial-item"),scrim=el.querySelector(".ak-dial-scrim"),txt=el.querySelector(".ak-fab-text"),label=txt?txt.textContent:"",n=items.length;
-each(items,function(it,i){it.style.setProperty("--i",n-1-i);it.style.setProperty("--j",i);});
-function set(o){el.classList.toggle("open",o);fab.setAttribute("aria-expanded",o?"true":"false");
-if(o)menu.removeAttribute("inert");else menu.setAttribute("inert","");menu.setAttribute("aria-hidden",o?"false":"true");
-if(txt)txt.textContent=o?"Close":label;}
-var api={open:function(){set(true);setTimeout(function(){if(items[n-1])items[n-1].focus();},80);},close:function(focus){if(!el.classList.contains("open"))return;set(false);if(focus)fab.focus();},isOpen:function(){return el.classList.contains("open");}};
-fab.addEventListener("click",function(){api.isOpen()?api.close():api.open();});
-if(scrim)scrim.addEventListener("click",function(){api.close(true);});
-each(items,function(it){it.addEventListener("click",function(){set(false);});});
-set(false);el._ak=api;dials.push(api);return api;}
-function closeDials(){each(dials,function(a){a.close();});}
-AK.dial=dial;
-
-/* story cards */
-function stories(el,o){el=$(el);o=o||{};var cards=el.querySelectorAll(".ak-story"),n=cards.length,bars=el.querySelector(".ak-bars"),i=0,run=false,live=el.querySelector(".ak-story-live"),pb=el.querySelector(".ak-pause");
-bars.textContent="";for(var k=0;k<n;k++){var b=d.createElement("i");b.appendChild(d.createElement("b"));bars.appendChild(b);}
-var bs=bars.children;el.style.setProperty("--ak-dur",(o.ms||5000)+"ms");
-function go(j){i=Math.max(0,Math.min(n-1,j));el.classList.remove("ended");
-for(var k=0;k<n;k++){cards[k].classList.toggle("on",k===i);cards[k].classList.toggle("past",k<i);cards[k].setAttribute("aria-hidden",k===i?"false":"true");bs[k].className=k<i?"done":"";}
-void bs[i].offsetWidth;bs[i].className=run&&!rm()?"on":"cur";if(live)live.textContent="Card "+(i+1)+" of "+n;if(o.onChange)o.onChange(i);}
-function end(){run=false;bs[n-1].className="done";el.classList.add("ended");setPb();if(o.onEnd)o.onEnd();}
-function next(){if(i<n-1)go(i+1);else end();}
-function setPb(){if(pb){pb.textContent=run?"❚❚":"▶";pb.setAttribute("aria-label",run?"Pause the cards":"Play the cards");}}
-bars.addEventListener("animationend",function(e){if(run&&e.target===bs[i].firstChild)next();});
-var pv=el.querySelector(".ak-tap.prev"),nx=el.querySelector(".ak-tap.next");
-if(pv)pv.addEventListener("click",function(){go(i-1);});
-if(nx)nx.addEventListener("click",next);
-if(pb)pb.addEventListener("click",function(){if(run){run=false;el.classList.remove("paused");bs[i].className="cur";}else{run=true;if(el.classList.contains("ended"))i=0;}go(i);setPb();});
-el.addEventListener("pointerdown",function(e){if(run&&!e.target.closest(".ak-pause"))el.classList.add("paused");});
-each(["pointerup","pointercancel","pointerleave"],function(t){el.addEventListener(t,function(){el.classList.remove("paused");});});
-el.addEventListener("keydown",function(e){if(e.key==="ArrowRight"){next();e.preventDefault();}else if(e.key==="ArrowLeft"){go(i-1);e.preventDefault();}});
-var api={start:function(){run=!rm();go(0);setPb();},stop:function(){run=false;el.classList.remove("paused");each(bs,function(b){b.className="";});setPb();},go:go,next:next};
-return api;}
-AK.stories=stories;
-
-/* count-up number */
-function countUp(el,to,o){el=$(el);o=o||{};var dec=o.decimals||0,from=o.from||0,dur=o.ms||900;
-function f(v){var s=v.toFixed(dec);if(/^-0(\.0+)?$/.test(s))s=s.slice(1);if(o.sign&&parseFloat(s)>0)s="+"+s;return (o.prefix||"")+s.replace("-","−")+(o.suffix||"");}
-if(el._akRaf)w.cancelAnimationFrame(el._akRaf);
-if(rm()||!w.requestAnimationFrame){el.textContent=f(to);return;}
-var t0=null;function step(t){if(t0===null)t0=t;var p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=f(from+(to-from)*e);if(p<1)el._akRaf=w.requestAnimationFrame(step);}
-el.textContent=f(from);el._akRaf=w.requestAnimationFrame(step);}
-AK.countUp=countUp;
-
-/* progress ring: frac 0..1 */
-AK.ring=function(el,frac,label){el=$(el);var c=el.querySelector(".ak-ring-fg"),C=2*Math.PI*parseFloat(c.getAttribute("r"));frac=Math.max(0,Math.min(1,frac));
-c.style.strokeDasharray=C.toFixed(2);c.style.strokeDashoffset=(C*(1-frac)).toFixed(2);el.classList.toggle("full",frac>=1);
-var v=el.querySelector(".ak-ring-val");if(v&&label!=null)v.textContent=label;};
-
-/* checkmark draw: replays the animation */
-AK.check=function(el){el=$(el);el.classList.remove("go");void el.offsetWidth;el.classList.add("go");};
-
-/* confetti burst inside a positioned host */
-var COLS=["#e86fa8","#5fc4c9","#1d7f86","#ffd166","#c2185b","#0f1b2d"];
-AK.confetti=function(host,n){host=$(host);if(rm()||!host)return;n=n||30;var box=d.createElement("div");box.className="ak-confetti";box.setAttribute("aria-hidden","true");
-for(var k=0;k<n;k++){var p=d.createElement("i"),a=Math.random()*Math.PI*2,v=70+Math.random()*120;
-p.style.cssText="background:"+COLS[k%COLS.length]+";--x:"+(Math.cos(a)*v).toFixed(0)+"px;--y:"+(Math.sin(a)*v*.7+60).toFixed(0)+"px;--r:"+(Math.random()*720-360).toFixed(0)+"deg;animation-delay:"+(Math.random()*90).toFixed(0)+"ms";
-box.appendChild(p);}host.appendChild(box);setTimeout(function(){if(box.parentNode)box.parentNode.removeChild(box);},1400);};
-
-/* shimmer skeleton for at most 400 ms, then done() */
-AK.skeleton=function(host,ms,done,lines){host=$(host);host.textContent="";var wrap=d.createElement("div");wrap.setAttribute("role","status");
-var sr=d.createElement("span");sr.className="ak-sr";sr.textContent="Loading";wrap.appendChild(sr);
-for(var k=0;k<(lines||3);k++){var s=d.createElement("div");s.className="ak-skel";s.style.width=[92,74,58,84][k%4]+"%";wrap.appendChild(s);}
-host.appendChild(wrap);setTimeout(function(){host.textContent="";done();},rm()?0:Math.min(ms||300,400));};
-
-/* scroll reveal */
-function reveal(){var els=d.querySelectorAll(".ak-reveal:not(.ak-in)");
-if(rm()||!("IntersectionObserver" in w)){each(els,function(e){e.classList.add("ak-in");});return;}
-var io=new IntersectionObserver(function(es){each(es,function(en){if(en.isIntersecting){en.target.classList.add("ak-in");io.unobserve(en.target);}});},{threshold:.12,rootMargin:"0px 0px -6% 0px"});
-each(els,function(e){io.observe(e);});}
-AK.reveal=reveal;
-
-/* light / dark theme */
-function theme(t){var h=d.documentElement;if(t)h.setAttribute("data-theme",t);t=h.getAttribute("data-theme")||"light";
-each(d.querySelectorAll("[data-ak-theme-toggle]"),function(b){b.setAttribute("aria-pressed",t==="dark"?"true":"false");if(!b.getAttribute("aria-label"))b.setAttribute("aria-label","Dark mode");
-if(!b.querySelector(".ak-tt-track")){var tr=d.createElement("span");tr.className="ak-tt-track";tr.setAttribute("aria-hidden","true");var k=d.createElement("span");k.className="ak-tt-knob";tr.appendChild(k);b.textContent="";b.appendChild(tr);}});
-var m=d.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#0b1320":"#0f1b2d");return t;}
-AK.theme=theme;
-
-/* global wiring */
-d.addEventListener("click",function(e){var t=e.target;if(!t.closest)return;
-var o=t.closest("[data-ak-sheet]");if(o){sheetOpen(o.getAttribute("data-ak-sheet"),o);return;}
-if(openS&&(t===openS||t.closest(".ak-x"))){sheetClose();return;}
-if(t.closest("[data-ak-theme-toggle]"))theme(d.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");});
-d.addEventListener("keydown",function(e){if(e.key!=="Escape"&&e.key!=="Esc")return;
-if(openS){sheetClose();return;}each(dials,function(a){a.close(true);});});
-function init(){each(d.querySelectorAll("[data-ak-dial]"),dial);
-if(!d.documentElement.getAttribute("data-theme"))theme(mq("(prefers-color-scheme: dark)").matches?"dark":"light");else theme();reveal();}
-if(d.readyState==="loading")d.addEventListener("DOMContentLoaded",init);else init();
-w.AK=AK;
-})(window,document);
-
-</script>
-<script>
-(function(){
-function $(id){return document.getElementById(id);}
-var AK=window.AK;
-/* ---- panes in one spring bottom sheet ---- */
-var sht=$("sht"),sb=$("sb"),cur=null,st=null;
-var TITLES={watch:"Watch it work",check:"Start-up checklist",wrong:"Something's wrong?",today:"Is today normal?",ask:"Ask a question",eng:"Engineer view",manual:"HX-101 sample manual"};
-var panes=document.querySelectorAll(".pane"),vids=document.querySelectorAll("video");
-function openP(p,btn){if(!TITLES[p])return;cur=p;
-for(var i=0;i<panes.length;i++)panes[i].hidden=panes[i].getAttribute("data-p")!==p;
-sht.textContent=TITLES[p];sb.scrollTop=0;
-if(p==="watch"){for(var v=0;v<vids.length;v++)vids[v].preload="metadata";st.start();}else st.stop();
-AK.sheet.open("sheet",btn);}
-document.addEventListener("click",function(e){var o=e.target.closest&&e.target.closest("[data-open]");if(o)openP(o.getAttribute("data-open"),o);});
-$("sheet").addEventListener("ak:close",function(){cur=null;st.stop();for(var v=0;v<vids.length;v++)vids[v].pause();});
-
-/* ---- watch: story cards ---- */
-st=AK.stories("st",{ms:5000});
-$("replay").addEventListener("click",function(){st.start();});
-$("watchnow").addEventListener("click",function(){st.stop();var v=vids[0];v.scrollIntoView({behavior:AK.reduced()?"auto":"smooth",block:"center"});var p=v.play();if(p&&p.catch)p.catch(function(){});});
-$("cheat").addEventListener("click",function(){$("ds").scrollIntoView({behavior:AK.reduced()?"auto":"smooth",block:"start"});});
-
-/* ---- checklist: ring + checkmark + confetti ---- */
-var boxes=document.querySelectorAll("#check input"),prog=$("prog"),done=$("done"),wasAll=false;
-function upd(){var n=0;for(var i=0;i<boxes.length;i++){var on=boxes[i].checked;boxes[i].parentNode.parentNode.className=on?"ticked":"";if(on)n++;}
-AK.ring("ring",n/boxes.length,n+"/"+boxes.length);
-prog.innerHTML="";prog.appendChild(document.createTextNode(n+" of "+boxes.length+" done"));prog.appendChild(el("small",n===boxes.length?"Ready to run":"Ticks fill the ring"));
-var all=n===boxes.length;
-if(all&&!wasAll){done.hidden=false;AK.check(done);AK.confetti(done,34);setTimeout(function(){done.scrollIntoView({behavior:AK.reduced()?"auto":"smooth",block:"nearest"});},50);}
-if(!all){done.hidden=true;done.classList.remove("go");}
-wasAll=all;}
-for(var b=0;b<boxes.length;b++)boxes[b].addEventListener("change",upd);
-upd();
-$("reset").addEventListener("click",function(){for(var i=0;i<boxes.length;i++)boxes[i].checked=false;upd();sb.scrollTop=0;});
-
-/* ---- something's wrong ---- */
-var SYM={
-dp:{t:"Pressure drop rising",c:["Fouling or a blockage in the tubes or shell","A blocked upstream strainer","A partly closed valve","A flow higher than normal"],f:"Check the flow and valve positions first. Then trend the pressure drop against the clean baseline at the same flow; one reading is not enough.",s:"9.1, 6.3"},
-hot:{t:"Outlet not hot enough",c:["Fouling on the tubes","Air not vented","A flow lower than normal","An inlet temperature different from normal"],f:"Compare today's flows and inlet temperatures with the clean baseline at the same flows. Then trend the readings for fouling.",s:"9.2, 5.2, 6.3"},
-leak:{t:"Leak or drip",c:["A leaking tube or gasket","One fluid may be getting into the other"],f:"Report it and follow your site procedure. Isolate as your procedure says. Never open covers while HX-101 is running or under pressure. Surfaces can be hot.",s:"9.3, 7.2, 8.3"},
-noise:{t:"Strange noise",c:["Knocking or hammering: trapped air","Rattling or vibration: a flow higher than normal","Rattling or vibration: loose tubes or baffles"],f:"Check the flow first. Venting is described in section 4.1. If the noise is new or getting worse, report it and follow your site procedure.",s:"9.4, 4.1, 2.2"}};
-var syms=document.querySelectorAll(".sym"),symr=$("symr");
-function el(tag,txt,cls){var d=document.createElement(tag);if(txt)d.textContent=txt;if(cls)d.className=cls;return d;}
-function near(r){setTimeout(function(){r.scrollIntoView({behavior:AK.reduced()?"auto":"smooth",block:"nearest"});},30);}
-function showSym(k){var d=SYM[k];if(!d)return;
-for(var i=0;i<syms.length;i++)syms[i].setAttribute("aria-pressed",syms[i].getAttribute("data-s")===k?"true":"false");
-var r=el("div","","res ak-pop");r.appendChild(el("h3",d.t));r.appendChild(el("b","Likely causes"));
-var ul=el("ul");for(var j=0;j<d.c.length;j++)ul.appendChild(el("li",d.c[j]));r.appendChild(ul);
-var f=el("div","","first");f.appendChild(el("b","Check first: "));f.appendChild(document.createTextNode(d.f));r.appendChild(f);
-r.appendChild(el("span","Source: HX-101 manual, section "+d.s,"src"));
-symr.textContent="";symr.appendChild(r);near(r);}
-for(var s=0;s<syms.length;s++)syms[s].addEventListener("click",function(){showSym(this.getAttribute("data-s"));});
-
-/* ---- is today normal? (sample values, manual 5.2-5.4, 6.3) ---- */
-var BASE_DP=0.40,BASE_T=60,DP_BAND=0.20,T_BAND=3,CLEAN=1.5;
-var NORMAL=[0.40,0.41,0.40,0.42,0.41,0.40,0.42,0.41,0.42],FOULED=[0.41,0.42,0.43,0.45,0.46,0.48,0.50,0.52,0.54],past=NORMAL;
-var dpi=$("dpi"),ti=$("ti"),verdict=$("verdict"),spk=$("spk"),seq=0;
-function fmt(){$("dpo").textContent=(+dpi.value).toFixed(2)+" bar";$("to").textContent=(+ti.value).toFixed(1)+" °C";}
+function rm(){return !!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);}
+function el(tag,txt,cls){var e=d.createElement(tag);if(txt)e.textContent=txt;if(cls)e.className=cls;return e;}
+function near(r){setTimeout(function(){if(r.scrollIntoView)r.scrollIntoView({behavior:rm()?"auto":"smooth",block:"nearest"});},30);}
 var NS="http://www.w3.org/2000/svg";
-function svg(tag,at){var e=document.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);return e;}
+function svg(tag,at){var e=d.createElementNS(NS,tag);for(var k in at)e.setAttribute(k,at[k]);return e;}
+function icon(id){var s=svg("svg",{"class":"i","aria-hidden":"true"}),u=svg("use",{href:"#"+id});s.appendChild(u);return s;}
+
+/* ---- theme: small icon button, starts with the device setting ---- */
+var tb=$("theme");
+function theme(t){d.documentElement.setAttribute("data-theme",t);var dark=t==="dark";
+tb.setAttribute("aria-pressed",dark?"true":"false");tb.setAttribute("aria-label",dark?"Light theme":"Dark theme");
+tb.querySelector("use").setAttribute("href",dark?"#i-sun":"#i-moon");
+var m=d.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",dark?"#0b1320":"#0f1b2d");}
+theme(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+tb.addEventListener("click",function(){theme(d.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");});
+
+/* ---- one bottom sheet with panes ---- */
+var sc=$("sheet"),sht=$("sht"),sb=$("sb"),app=$("app"),launch=$("launch"),opener=null,cur=null;
+var TITLES={watch:"Understand operation",check:"Review start-up checks",wrong:"Troubleshoot",today:"Check operating data",ask:"Ask about HX-101",manual:"HX-101 sample manual"};
+var panes=d.querySelectorAll(".pane"),vids=d.querySelectorAll("video");
+function openP(p,from){if(!TITLES[p])return;cur=p;
+each(panes,function(x){x.hidden=x.getAttribute("data-p")!==p;});
+sht.textContent=TITLES[p];sb.scrollTop=0;
+if(p==="watch"){each(vids,function(v){v.preload="metadata";});recap(0);}
+if(!sc.classList.contains("open")){opener=from||d.activeElement;
+each([app,launch],function(x){x.setAttribute("inert","");x.setAttribute("aria-hidden","true");});
+sc.setAttribute("aria-hidden","false");void sc.offsetWidth;sc.classList.add("open");d.body.style.overflow="hidden";}
+setTimeout(function(){var f=p==="ask"?$("q"):$("close");if(cur===p&&f)f.focus();},rm()?0:200);}
+function closeS(){if(!sc.classList.contains("open"))return;cur=null;sc.classList.remove("open");sc.setAttribute("aria-hidden","true");
+each([app,launch],function(x){x.removeAttribute("inert");x.removeAttribute("aria-hidden");});d.body.style.overflow="";
+each(vids,function(v){v.pause();});if(opener&&opener.focus)opener.focus();}
+d.addEventListener("click",function(e){var o=e.target.closest&&e.target.closest("[data-open]");if(o){e.preventDefault();openP(o.getAttribute("data-open"),o);}});
+$("close").addEventListener("click",closeS);
+sc.addEventListener("click",function(e){if(e.target===sc)closeS();});
+d.addEventListener("keydown",function(e){if((e.key==="Escape"||e.key==="Esc")&&sc.classList.contains("open"))closeS();});
+
+/* ---- answer block: From the manual / Sample data or assumption / Not covered ---- */
+function answerBox(o){var b=el("div","","ans"+(o.unk?" unk":""));if(o.title)b.appendChild(el("h3",o.title));
+if(o.unk){b.appendChild(el("p",o.unk));var a=el("a","Contact support");a.href="mailto:info@avisha.ai?subject=HX-101%20demo%3A%20question%20not%20in%20the%20manual";
+var pa=el("p");pa.style.marginTop="8px";pa.appendChild(a);b.appendChild(pa);b.appendChild(el("span","Source: not in the HX-101 manual","src"));return b;}
+b.appendChild(el("span","From the manual","k"));
+if(o.list){var ul=el("ul");each(o.list,function(t){ul.appendChild(el("li",t));});b.appendChild(ul);}
+if(o.text)b.appendChild(el("p",o.text));
+if(o.first){b.appendChild(el("span","Check first","k"));b.appendChild(el("p",o.first));}
+b.appendChild(el("span","Sample data / assumption","k"));b.appendChild(el("p",o.sample||"None used in this answer.","smp"));
+if(o.gap){b.appendChild(el("span","Not covered","k"));b.appendChild(el("p",o.gap,"gap"));}
+b.appendChild(el("span","Source: HX-101 manual, section "+o.s,"src"));return b;}
+
+/* ---- understand: 3-point recap, manual buttons, no autoplay ---- */
+var RECAP=[["The two fluids flow in opposite directions (countercurrent). That moves the most heat for this size of exchanger.","Source: HX-101 manual, section 1"],
+["Fouling is a deposit on the tubes. Less heat gets through, and the pressure drop often rises.","Source: HX-101 manual, sections 6.1–6.2"],
+["Compare readings with the clean baseline and watch the trend. One reading is not enough.","Source: HX-101 manual, sections 5.2, 6.3"]],ri=0,dots=d.querySelectorAll("#recap .dots i");
+function recap(i){ri=Math.max(0,Math.min(RECAP.length-1,i));$("rn").textContent="Recap "+(ri+1)+" of "+RECAP.length;$("rt").textContent=RECAP[ri][0];$("rs").textContent=RECAP[ri][1];
+each(dots,function(x,k){x.className=k===ri?"on":"";});$("rprev").disabled=ri===0;
+var last=ri===RECAP.length-1,nb=$("rnext");nb.firstChild.nodeValue=last?"To the videos ":"Next ";}
+$("rprev").addEventListener("click",function(){recap(ri-1);});
+$("rnext").addEventListener("click",function(){if(ri<RECAP.length-1)recap(ri+1);else near(vids[0]);});
+
+/* ---- start-up checks ---- */
+var boxes=d.querySelectorAll("#check input"),prog=$("prog"),done=$("done");
+function upd(){var n=0;each(boxes,function(b){b.parentNode.parentNode.className=b.checked?"ticked":"";if(b.checked)n++;});
+prog.textContent=n+" of "+boxes.length+" reviewed";$("barb").style.width=(n/boxes.length*100)+"%";
+var all=n===boxes.length,was=!done.hidden;done.hidden=!all;if(all&&!was)near(done);}
+each(boxes,function(b){b.addEventListener("change",upd);});upd();
+$("reset").addEventListener("click",function(){each(boxes,function(b){b.checked=false;});upd();sb.scrollTop=0;});
+
+/* ---- troubleshoot ---- */
+var GAP="If what you see is not listed here, the manual doesn't cover it: contact support.";
+var SYM={
+dp:{title:"Pressure drop rising",list:["Fouling or a blockage in the tubes or shell","A blocked upstream strainer","A partly closed valve","A flow higher than normal"],first:"Check the flow and valve positions. Then trend the pressure drop against the clean baseline at the same flow; one reading is not enough.",sample:"Sample baseline 0.40 bar; sample normal limit +20%; sample cleaning trigger 1.5 × baseline. Causes are listed in manual order, not ranked by likelihood.",s:"9.1, 6.3"},
+hot:{title:"Outlet not hot enough",list:["Fouling on the tubes","Air not vented","A flow lower than normal","An inlet temperature different from normal"],first:"Compare today's flows and inlet temperatures with the clean baseline at the same flows. Then trend the readings for fouling.",sample:"Sample baseline outlet 60 °C; sample normal limit −3 °C. Causes are listed in manual order, not ranked by likelihood.",s:"9.2, 5.2, 6.3"},
+leak:{title:"Leak or drip",list:["A leaking tube or gasket","One fluid may be getting into the other"],first:"Report it and follow your site procedure. Isolate as your procedure says. Never open covers while HX-101 is running or under pressure. Surfaces can be hot.",sample:"",s:"9.3, 7.2, 8.3"},
+noise:{title:"Strange noise",list:["Knocking or hammering: trapped air","Rattling or vibration: a flow higher than normal","Rattling or vibration: loose tubes or baffles"],first:"Check the flow first. Venting is described in section 4.1. If the noise is new or getting worse, report it and follow your site procedure.",sample:"",s:"9.4, 4.1, 2.2"}};
+var syms=d.querySelectorAll(".sym"),symr=$("symr");
+function showSym(k){var o=SYM[k];if(!o)return;each(syms,function(b){b.setAttribute("aria-pressed",b.getAttribute("data-s")===k?"true":"false");});
+o.gap=GAP;var r=answerBox(o);symr.textContent="";symr.appendChild(r);near(r);}
+each(syms,function(b){b.addEventListener("click",function(){showSym(b.getAttribute("data-s"));});});
+
+/* ---- operating data (sample values, manual 5.2-5.4, 6.3) ---- */
+var BASE_DP=0.40,BASE_T=60,DP_BAND=0.20,T_BAND=3,CLEAN=1.5;
+var NORMAL=[0.40,0.41,0.40,0.42,0.41,0.40,0.42,0.41,0.42],FOULED=[0.41,0.42,0.43,0.45,0.46,0.48,0.50,0.52,0.54],past=NORMAL,nodata=false;
+var dpi=$("dpi"),ti=$("ti"),verdict=$("verdict"),spk=$("spk");
+function fmt(){$("dpo").textContent=(+dpi.value).toFixed(2)+" bar";$("to").textContent=(+ti.value).toFixed(1)+" °C";}
 function draw(){var pts=past.concat([+dpi.value]),lo=0.3,hi=0.7,W=200,H=48,P=4;
 function y(v){v=Math.max(lo,Math.min(hi,v));return (H-P-(v-lo)/(hi-lo)*(H-2*P)).toFixed(1);}
 function x(i){return (P+i*(W-2*P)/(pts.length-1)).toFixed(1);}
 while(spk.firstChild)spk.removeChild(spk.firstChild);
 spk.appendChild(svg("line",{x1:0,x2:W,y1:y(BASE_DP),y2:y(BASE_DP),stroke:"#9aa6b2","stroke-dasharray":"3 3","stroke-width":1}));
 spk.appendChild(svg("line",{x1:0,x2:W,y1:y(BASE_DP*(1+DP_BAND)),y2:y(BASE_DP*(1+DP_BAND)),stroke:"#d97706","stroke-dasharray":"3 3","stroke-width":1}));
-var d="";for(var i=0;i<pts.length;i++)d+=x(i)+","+y(pts[i])+" ";
-spk.appendChild(svg("polyline",{points:d,fill:"none",stroke:"#2a9aa0","stroke-width":2.5,"stroke-linejoin":"round","stroke-linecap":"round"}));
-var last=pts[pts.length-1];
-spk.appendChild(svg("circle",{cx:x(pts.length-1),cy:y(last),r:4,fill:last>BASE_DP*(1+DP_BAND)+1e-9?"#d97706":"#16a34a"}));}
-function num(lbl){var b=el("div","","num"),s=el("strong");s.setAttribute("aria-hidden","true");b.appendChild(s);b.appendChild(el("small",lbl));return {box:b,n:s};}
-function check(){var dp=parseFloat(dpi.value),t=parseFloat(ti.value);
-if(isNaN(dp)||isNaN(t))return;
+var pl="";for(var i=0;i<pts.length;i++)pl+=x(i)+","+y(pts[i])+" ";
+spk.appendChild(svg("polyline",{points:pl,fill:"none",stroke:"#2a9aa0","stroke-width":2,"stroke-linejoin":"round","stroke-linecap":"round"}));
+var last=pts[pts.length-1];spk.appendChild(svg("circle",{cx:x(pts.length-1),cy:y(last),r:3.5,fill:last>BASE_DP*(1+DP_BAND)+1e-9?"#d97706":"#16a34a"}));}
+function num(v,lbl){var b=el("div","","num");b.appendChild(el("strong",v));b.appendChild(el("small",lbl));return b;}
+function sgn(v,dec){var s=Math.abs(v).toFixed(dec);return (v>0?"+":v<0?"−":"")+s;}
+function verdictBox(kind,head,ico){var v=el("div","","verdict "+kind),h=el("b","","h");h.appendChild(icon(ico));h.appendChild(d.createTextNode(head));v.appendChild(h);return v;}
+function kv(v,k,t,cls){v.appendChild(el("span",k,"k"));v.appendChild(el("p",t,cls));}
+function check(){if(nodata)return;var dp=parseFloat(dpi.value),t=parseFloat(ti.value);if(isNaN(dp)||isNaN(t))return;
 var pct=Math.round((dp/BASE_DP-1)*100),dT=Math.round((BASE_T-t)*10)/10;
-var hiDp=dp>BASE_DP*(1+DP_BAND)+1e-9,loT=dT>T_BAND+1e-9,head,line,more="";
-if(!hiDp&&!loT){head="Normal";line="Within the sample normal range: pressure drop within 20% of the 0.40 bar baseline, outlet within 3 °C of 60 °C.";more="Keep recording each shift. Source: HX-101 manual, section 5.1–5.4";}
-else if(hiDp&&loT){head="Unusual";line="Pressure drop "+pct+"% above normal and outlet "+dT+" °C below baseline. Possible fouling. See the cleaning section.";more="Check the flow and valves first, then trend it; one reading is not enough. Source: HX-101 manual, sections 6, 7, 9.1";}
-else if(hiDp){head="Unusual";line="Pressure drop "+pct+"% above normal. Possible fouling or a blockage.";more="Also possible: a blocked strainer, a partly closed valve or a higher flow. Check the flow and valves first. Source: HX-101 manual, section 9.1";}
-else{head="Unusual";line="Outlet "+dT+" °C below baseline. Not enough heating.";more="Possible: fouling, air not vented, a lower flow or a different inlet temperature. Compare flows and inlet temperatures with the baseline. Source: HX-101 manual, sections 9.2, 5.2";}
-if(dp>=BASE_DP*CLEAN-1e-9)more+=". Sample cleaning trigger (1.5 × baseline) reached: plan a cleaning shutdown under your site permit; never clean while running (sections 6.3, 7.2)";
-var my=++seq;draw();
-AK.skeleton(verdict,350,function(){if(my!==seq)return;
-var ok=head==="Normal",v=el("div","","verdict ak-pop "+(ok?"ok":"warn"));v.appendChild(el("b",(ok?"✓ ":"⚠ ")+head,"h"));
-var g=el("div","","nums"),a=num("Pressure drop vs 0.40 bar baseline"),c=num("Outlet vs 60 °C baseline");g.appendChild(a.box);g.appendChild(c.box);v.appendChild(g);
-v.appendChild(el("p",line));v.appendChild(el("p",more+".","src"));
-verdict.textContent="";verdict.appendChild(v);
-AK.countUp(a.n,pct,{sign:true,suffix:" %"});AK.countUp(c.n,-dT,{sign:true,decimals:1,suffix:" °C"});
-if(ok)AK.confetti(v,18);near(v);},2);}
-function moved(){seq++;fmt();draw();verdict.textContent="";}
+var hiDp=dp>BASE_DP*(1+DP_BAND)+1e-9,loT=dT>T_BAND+1e-9,head,line,s;
+if(!hiDp&&!loT){head="Within the normal range";line="Pressure drop within 20% of the baseline and outlet within 3 °C of the baseline. Keep recording each shift.";s="5.1–5.4";}
+else if(hiDp&&loT){head="Unusual: check it";line="Pressure drop above the normal range and outlet below it: possible fouling. Check the flow and valves first, then trend it; one reading is not enough.";s="5.4, 6, 9.1";}
+else if(hiDp){head="Unusual: check it";line="Pressure drop above the normal range: possible fouling or a blockage. Also possible: a blocked strainer, a partly closed valve or a higher flow. Check the flow and valves first.";s="5.4, 9.1";}
+else{head="Unusual: check it";line="Outlet below the normal range: not enough heating. Possible: fouling, air not vented, a lower flow or a different inlet temperature. Compare flows and inlet temperatures with the baseline.";s="5.4, 9.2, 5.2";}
+if(dp>=BASE_DP*CLEAN-1e-9){line+=" The sample cleaning trigger (1.5 × baseline) is reached: plan a cleaning shutdown under your site permit; never clean while running.";s+=", 6.3, 7.2";}
+draw();var ok=!hiDp&&!loT,v=verdictBox(ok?"ok":"warn",head,ok?"i-tick":"i-up");
+var g=el("div","","nums");g.appendChild(num(sgn(pct,0)+" %","Pressure drop vs 0.40 bar")); g.appendChild(num(sgn(-dT,1)+" °C","Outlet vs 60 °C"));v.appendChild(g);
+kv(v,"From the manual",line);
+kv(v,"Sample data / assumption","Baseline 0.40 bar and 60 °C, limits +20% and −3 °C are sample values. Readings are the ones entered above, assumed at design flow and normal inlet temperatures. Timestamp: sample.");
+v.appendChild(el("span","Source: HX-101 manual, section "+s,"src"));
+verdict.textContent="";verdict.appendChild(v);near(v);}
+function showNone(){var v=verdictBox("none","No data available","i-chart");
+kv(v,"What this means","No readings have been received for HX-101, so Ask Avisha cannot say whether today is normal. It will not guess.");
+kv(v,"From the manual","Record inlet and outlet temperatures and the pressure drop on both sides each shift, then compare with the clean baseline at the same flow.");
+v.appendChild(el("span","Source: HX-101 manual, section 5.1–5.2","src"));verdict.textContent="";verdict.appendChild(v);}
+function setNone(on){nodata=on;$("dnone").setAttribute("aria-pressed",on?"true":"false");$("dnone").textContent=on?"Use sample readings":'Show "no data"';
+$("dsrc").textContent=on?"None: no readings received (demo)":"Sample readings (demo, not from a live sensor)";$("dtime").textContent=on?"—":"Sample timestamp · not live";
+dpi.disabled=ti.disabled=$("chk").disabled=on;$("spkw").hidden=on;if(on)showNone();else verdict.textContent="";}
+function moved(){fmt();draw();verdict.textContent="";}
 dpi.addEventListener("input",moved);ti.addEventListener("input",moved);
 $("chk").addEventListener("click",check);
-$("dnorm").addEventListener("click",function(){past=NORMAL;dpi.value="0.42";ti.value="60";fmt();check();});
-$("dfoul").addEventListener("click",function(){past=FOULED;dpi.value="0.56";ti.value="56";fmt();check();});
+$("dnorm").addEventListener("click",function(){setNone(false);past=NORMAL;dpi.value="0.42";ti.value="60";fmt();check();});
+$("dfoul").addEventListener("click",function(){setNone(false);past=FOULED;dpi.value="0.62";ti.value="56";fmt();check();});
+$("dnone").addEventListener("click",function(){setNone(!nodata);});
 fmt();draw();
 
-/* ---- engineer view: U calculator (sample data, manual 10.1-10.4) ---- */
+/* ---- technical details: U calculator (sample data, manual 10.1-10.4) ---- */
 var HO=1500,HI=3000,XW=0.0012,KW=16;
 function U(rf){return 1/(1/HO+rf+XW/KW+rf+1/HI);}
 var rf=$("rf"),u0=U(0);
 function calc(){var r=parseFloat(rf.value),u=U(r);$("rfo").textContent=r.toFixed(5);$("uo").textContent=Math.round(u);$("uc").textContent=Math.round(u0);$("up").textContent=Math.round(u/u0*100)+"% of clean";}
 rf.addEventListener("input",calc);calc();
 
-/* ---- ask (manual-only answers) ---- */
+/* ---- ask: manual-only answers ---- */
 var KB=[
-{k:["pressure drop","dp","delta p","differential","pressure rising","pressure is rising","pressure high","high pressure drop"],s:"9.1",a:"A rising pressure drop at the same flow usually means fouling or a blockage in the tubes or shell. Other causes: a blocked upstream strainer, a partly closed valve, or a flow higher than normal. Check the flow and valves first, then trend the readings for fouling."},
-{k:["fouling","foul","deposit","scale","dirty","grime","sludge","fouled"],s:"6.1–6.3",a:"Fouling is a layer of deposit (scale, sludge, corrosion products or biological growth) on the tube surfaces. You see it in the readings: the cold outlet is cooler and the hot outlet hotter than the baseline at the same flows, and the pressure drop often rises slowly. Trend the readings; one reading is not enough."},
-{k:["baffle","baffles","plates inside","plates in the shell"],s:"2.2",a:"Baffles are plates across the shell. They hold the tubes in place and stop them vibrating, and they make the shell-side fluid flow back and forth across the tubes instead of straight along the shell. Crossflow moves heat better. Baffles also cause much of the shell-side pressure drop."},
-{k:["clean","cleaning","wash","while running","online","open it","descale"],s:"7.2–7.3",a:"No. Never open, clean or remove covers while HX-101 is running or under pressure. Cleaning needs a shutdown with both sides isolated, depressurised, drained, cooled and made safe under your site's permit. Then trained people clean the tubes mechanically or chemically following the cleaning procedure."},
-{k:["start","startup","start-up","first","which side","commission","bring in"],s:"4.1–4.2",a:"Bring the cold side in first: open the inlet slowly and vent air from the high point until only liquid comes out. Then bring the hot side in slowly and vent it the same way. Heating up slowly avoids thermal shock at the tube joints and gaskets."},
+{k:["pressure drop","dp","delta p","differential","pressure rising","pressure is rising","pressure high","high pressure drop"],s:"9.1, 5.2",a:"A rising pressure drop at the same flow usually means fouling or a blockage in the tubes or shell. Other causes: a blocked upstream strainer, a partly closed valve, or a flow higher than normal. Check the flow and valves first, then trend the readings for fouling.",d:"Sample clean baseline 0.40 bar at design flow; sample normal limit +20%."},
+{k:["fouling","foul","deposit","scale","dirty","grime","sludge","fouled"],s:"6.1–6.3",a:"Fouling is a layer of deposit (scale, sludge, corrosion products or biological growth) on the tube surfaces. You see it in the readings: the cold outlet is cooler and the hot outlet hotter than the baseline at the same flows, and the pressure drop often rises slowly. Trend the readings; one reading is not enough.",d:"Sample cleaning trigger: 1.5 × clean pressure drop. Your site sets the real limit."},
+{k:["baffle","baffles","plates inside","plates in the shell"],s:"2.2",a:"Baffles are plates across the shell. They hold the tubes in place and stop them vibrating, and they make the shell-side fluid flow back and forth across the tubes instead of straight along the shell. Crossflow moves heat better. Baffles also cause much of the shell-side pressure drop.",g:"The manual does not give HX-101's baffle spacing or number of baffles."},
+{k:["clean","cleaning","wash","while running","online","open it","descale"],s:"7.2–7.3",a:"No. Never open, clean or remove covers while HX-101 is running or under pressure. Cleaning needs a shutdown with both sides isolated, depressurised, drained, cooled and made safe under your site's permit. Then trained people clean the tubes mechanically or chemically following the cleaning procedure.",g:"The detailed cleaning procedure is a separate document, not part of this manual."},
+{k:["start","startup","start-up","first","which side","commission","bring in"],s:"4.1–4.2",a:"Bring the cold side in first: open the inlet slowly and vent air from the high point until only liquid comes out. Then bring the hot side in slowly and vent it the same way. Heating up slowly avoids thermal shock at the tube joints and gaskets.",g:"The manual gives no heat-up rate in °C per minute; follow your site procedure."},
 {k:["vent","air","bleed","trapped","hammer"],s:"4.1",a:"Vent each side at its high point when filling, until only liquid comes out. Trapped air blankets tube surface, so less heat is transferred, and it can cause hammering."},
-{k:["hot enough","cold enough","getting hot","not hot","not getting hot","not enough","not cooling","not heating","cold outlet","outlet temperature","temperature low","less heat","poor performance","underperform"],s:"9.2",a:"Not enough heating or cooling is usually caused by fouling, air that wasn't vented, a flow lower than normal, or an inlet temperature different from normal. Compare today's readings with the clean baseline at the same flows."},
+{k:["hot enough","cold enough","getting hot","not hot","not getting hot","not enough","not cooling","not heating","cold outlet","outlet temperature","temperature low","less heat","poor performance","underperform"],s:"9.2, 5.2",a:"Not enough heating or cooling is usually caused by fouling, air that wasn't vented, a flow lower than normal, or an inlet temperature different from normal. Compare today's readings with the clean baseline at the same flows.",d:"Sample baseline cold-side outlet 60 °C; sample normal limit 3 °C below."},
 {k:["shut","shutdown","shut down","stop","switch off","turn off"],s:"7.1",a:"Reduce and isolate the hot side first, then the cold side, so the exchanger cools down without overheating the cold side."},
 {k:["leak","leaking","mixing","contamination","contaminated","drip","dripping"],s:"9.3",a:"Report it and follow your site procedure. A tube or gasket may be leaking. Isolate the exchanger as your procedure says."},
 {k:["noise","noisy","sound","banging","knocking","rattle","rattling","vibration","vibrating","vibrate"],s:"9.4",a:"Knocking or hammering can mean trapped air. Rattling or vibration can mean a flow higher than normal or loose tubes or baffles. Check the flow first. If the noise is new or getting worse, report it and follow your site procedure."},
-{k:["maximum","max","design pressure","design temperature","limit","rating","nameplate","how hot","how much pressure"],s:"8.1",a:"Don't exceed the design pressure or temperature shown on the HX-101 nameplate. Never isolate the relief device while the exchanger is in service."},
-{k:["record","log","reading","readings","monitor","check every","each shift","baseline","normal range"],s:"5.1–5.4",a:"Each shift, record inlet and outlet temperatures and the pressure drop on both sides, and compare with the clean baseline at the same flow. A rising pressure drop or drifting outlet temperatures means the exchanger needs attention."},
-{k:["u value","u-value","overall heat transfer","heat transfer coefficient","coefficient"],s:"10.1–10.2",a:"1/U = 1/hₒ + R_f,o + x_w/k_w + R_f,i + 1/hᵢ (thin-wall form, all terms on one area). Fouling adds R_f,o and R_f,i, so U falls; at the same area and temperature difference the heat duty falls in the same proportion."}
+{k:["maximum","max","design pressure","design temperature","limit","rating","nameplate","how hot","how much pressure"],s:"8.1",a:"Don't exceed the design pressure or temperature shown on the HX-101 nameplate. Never isolate the relief device while the exchanger is in service.",g:"The manual does not state the numbers. Read them from the nameplate on the machine, or ask support."},
+{k:["record","log","reading","readings","monitor","check every","each shift","baseline","normal range"],s:"5.1–5.4",a:"Each shift, record inlet and outlet temperatures and the pressure drop on both sides, and compare with the clean baseline at the same flow. A rising pressure drop or drifting outlet temperatures means the exchanger needs attention.",d:"Sample baseline 0.40 bar and 60 °C; sample normal range +20% and −3 °C."},
+{k:["u value","u-value","overall heat transfer","heat transfer coefficient","coefficient"],s:"10.1–10.2",a:"1/U = 1/hₒ + R_f,o + x_w/k_w + R_f,i + 1/hᵢ. Fouling adds R_f,o and R_f,i, so U falls; at the same area and temperature difference the heat duty falls in the same proportion.",d:"Assumption: thin-wall form, all terms on one area. Sample data gives U ≈ 930 W/m²·K clean and ≈ 678 with the fouling allowance."}
 ];
-var UNK="I'm not sure. This isn't in the approved manual. Please contact Example Process Equipment support.";
+var UNK="This isn't in the approved HX-101 manual, so there is no answer to give. Please contact Example Process Equipment support.";
 function norm(t){return " "+t.toLowerCase().replace(/[’']/g,"").replace(/[^a-z0-9 -]+/g," ").replace(/\s+/g," ")+" ";}
 function answer(q){var t=norm(q),best=null,bs=0;
 for(var i=0;i<KB.length;i++){var sc=0;for(var j=0;j<KB[i].k.length;j++){var w=KB[i].k[j];if(t.indexOf(" "+w+" ")>-1||t.indexOf(" "+w+"s ")>-1||t.indexOf(" "+w+"ing ")>-1)sc+=w.split(" ").length;}
 if(sc>bs){bs=sc;best=KB[i];}}return best;}
-var chat=$("chat");
-function add(text,cls,src){var d=el("div",text,"msg "+cls);
-if(src)d.appendChild(el("span",src,"src"));chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
-function ask(q){q=q.trim();if(!q)return;add(q,"me");var r=answer(q),ty=el("div","","msg bot typing");chat.appendChild(ty);chat.scrollTop=chat.scrollHeight;
-AK.skeleton(ty,300,function(){if(ty.parentNode)ty.parentNode.removeChild(ty);if(r)add(r.a,"bot","Source: HX-101 manual, section "+r.s);else add(UNK,"bot unk","Not in the approved manual");},2);}
-var chips=document.querySelectorAll(".chip.q");for(var c=0;c<chips.length;c++)chips[c].addEventListener("click",function(){ask(this.textContent);});
+var thread=$("thread");
+function ask(q){q=(q||"").trim();if(!q)return;var r=answer(q),box=r?answerBox({text:r.a,sample:r.d,gap:r.g,s:r.s}):answerBox({title:"Not in the manual",unk:UNK});
+var qb=el("div",q,"ans q");thread.insertBefore(box,thread.firstChild);thread.insertBefore(qb,box);near(qb);}
+each(d.querySelectorAll("#chips .chip.q"),function(c){c.addEventListener("click",function(){ask(c.textContent);});});
 $("ask").addEventListener("submit",function(e){e.preventDefault();var q=$("q");ask(q.value);q.value="";});
+/* question box on the main page opens the same manual-only answers */
+var qm=$("qmain");
+function askMain(q){q=(q||"").trim();if(!q){qm.focus();return;}openP("ask",qm);ask(q);qm.value="";}
+$("qform").addEventListener("submit",function(e){e.preventDefault();askMain(qm.value);});
+each(d.querySelectorAll("#qform .chip.q"),function(c){c.addEventListener("click",function(){askMain(c.textContent);});});
 window.__askTest=answer;window.__U=U;
 })();
 </script>
