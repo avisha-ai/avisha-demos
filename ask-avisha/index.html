@@ -5,14 +5,14 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0f1b2d">
 <style>
-/* Avisha design kit v1 (27 Nov 2026). No libraries, no fonts, no tracking. See README.md. */
+/* Avisha design kit v2 (27 Nov 2026: Avisha's chosen button set). No libraries, no fonts, no tracking. See README.md. */
 :root{--ak-navy:#0f1b2d;--ak-teal:#1d7f86;--ak-aqua:#5fc4c9;--ak-pink:#e86fa8;--ak-magenta:#c2185b;
 --ak-bg:#eef2f6;--ak-card:#fff;--ak-ink:#0f1b2d;--ak-mut:#4a5566;--ak-line:#e3e8ee;--ak-soft:#e6f4f5;--ak-accent:#1d7f86;--ak-focus:#c2185b;
 --ak-spring:cubic-bezier(.34,1.56,.64,1);--ak-soft-spring:cubic-bezier(.3,1.3,.6,1);--ak-out:cubic-bezier(.2,.8,.2,1);
 --ak-shadow:0 6px 16px rgba(15,27,45,.16);--ak-shadow-up:0 18px 36px rgba(15,27,45,.26);color-scheme:light}
 [data-theme=dark]{--ak-bg:#0b1320;--ak-card:#15223a;--ak-ink:#e8eef5;--ak-mut:#a9b6c6;--ak-line:#273852;--ak-soft:#173445;--ak-accent:#6fd0d5;--ak-focus:#f39bc4;
 --ak-shadow:0 6px 18px rgba(0,0,0,.45);--ak-shadow-up:0 18px 40px rgba(0,0,0,.55);color-scheme:dark}
-.ak-tile:focus-visible,.ak-btn:focus-visible,.ak-fab:focus-visible,.ak-dial-item:focus-visible,.ak-x:focus-visible,.ak-toggle:focus-visible,.ak-stories button:focus-visible,.ak-sheet:focus-visible{outline:4px solid var(--ak-focus);outline-offset:3px}
+.ak-tile:focus-visible,.ak-btn:focus-visible,.ak-dial-item:focus-visible,.ak-x:focus-visible,.ak-toggle-theme:focus-visible,.ak-stories button:focus-visible,.ak-sheet:focus-visible{outline:4px solid var(--ak-focus);outline-offset:3px}
 .ak-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* 6. animated gradient hero + theme toggle */
@@ -22,8 +22,6 @@ background:radial-gradient(circle at 28% 32%,#1d7f86 0,transparent 34%),radial-g
 animation:ak-drift 18s ease-in-out infinite alternate;will-change:transform}
 @keyframes ak-drift{to{transform:translate(9%,-7%) rotate(28deg) scale(1.08)}}
 .ak-glass{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-radius:24px}
-.ak-toggle{width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);color:#fff;font-size:24px;cursor:pointer;display:grid;place-items:center;transition:transform .4s var(--ak-spring)}
-.ak-toggle:active{transform:scale(.88) rotate(-20deg)}
 
 /* 2. bento tiles */
 .ak-bento{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:minmax(136px,auto);grid-auto-flow:dense;gap:12px}
@@ -48,11 +46,10 @@ transition:transform .45s var(--ak-spring),box-shadow .3s ease;will-change:trans
 opacity:0;transform:translateY(28px) scale(.5);transform-origin:right center;transition:transform .2s var(--ak-out),opacity .15s ease;transition-delay:calc(var(--j,0) * 20ms)}
 .ak-dial-item .ak-ico{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--ak-soft);font-size:22px;flex:none}
 .ak-dial.open .ak-dial-item{opacity:1;transform:none;transition:transform .5s var(--ak-spring),opacity .2s ease;transition-delay:calc(var(--i,0) * 60ms)}
-.ak-fab{display:flex;align-items:center;gap:8px;min-height:64px;min-width:64px;padding:0 22px 0 16px;border:0;border-radius:999px;background:linear-gradient(135deg,#d63a85,var(--ak-magenta));color:#fff;font:inherit;font-weight:800;font-size:17px;cursor:pointer;
-box-shadow:0 10px 26px rgba(194,24,91,.45);transition:transform .4s var(--ak-spring)}
-.ak-fab:active{transform:scale(.92)}
+.ak-fab{min-height:64px;min-width:64px;padding:0 22px 0 16px;font-size:17px}
 .ak-fab .ak-plus{font-size:30px;line-height:1;display:inline-block;transition:transform .45s var(--ak-spring)}
 .ak-dial.open .ak-plus{transform:rotate(135deg)}
+@media(hover:hover){.ak-dial.open .ak-dial-item:hover{transform:translateY(-3px);transition-delay:0s}}
 
 /* 3. bottom sheet */
 .ak-scrim{position:fixed;inset:0;z-index:40;display:flex;align-items:flex-end;justify-content:center;background:rgba(15,27,45,.45);-webkit-backdrop-filter:blur(8px) saturate(1.2);backdrop-filter:blur(8px) saturate(1.2);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s}
@@ -89,8 +86,6 @@ transform:translateY(105%);transition:transform .24s cubic-bezier(.4,0,1,1);outl
 .ak-tile,.ak-btn,.ak-fab,.ak-dial-item,[data-ak-ripple]{position:relative;overflow:hidden}
 .ak-rip{position:absolute;border-radius:50%;background:currentColor;opacity:.28;transform:scale(0);pointer-events:none;animation:ak-rip .6s ease-out forwards}
 @keyframes ak-rip{to{transform:scale(1);opacity:0}}
-.ak-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:58px;border:0;border-radius:18px;background:linear-gradient(135deg,var(--ak-teal),#15646a);color:#fff;font:inherit;font-size:18px;font-weight:800;cursor:pointer;box-shadow:0 8px 20px rgba(29,127,134,.35);transition:transform .35s var(--ak-spring)}
-.ak-btn:active{transform:scale(.96)}
 .ak-check svg{width:76px;height:76px;display:block;margin:0 auto}
 .ak-check circle{fill:#15803d}.ak-check path{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60}
 .ak-check.go svg{animation:ak-popin .55s var(--ak-spring)}.ak-check.go path{animation:ak-draw .45s .2s ease forwards}
@@ -114,7 +109,54 @@ transform:translateY(105%);transition:transform .24s cubic-bezier(.4,0,1,1);outl
 .ak-js .ak-reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .8s var(--ak-out)}
 .ak-js .ak-reveal.ak-in{opacity:1;transform:none}
 
+/* 7. buttons (Avisha picks, 27 Nov 2026). One primary per screen; glow only for the single AI action; glass only on the dark hero. */
+.ak-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 24px;border:0;border-radius:999px;font:inherit;font-size:16px;font-weight:700;line-height:1.15;text-decoration:none;cursor:pointer;
+box-shadow:var(--ak-shadow);transition:transform .35s var(--ak-spring),box-shadow .3s ease,background-color .2s;-webkit-tap-highlight-color:transparent}
+@media(hover:hover){.ak-btn:hover,.ak-lift:hover{transform:translateY(-3px);box-shadow:var(--ak-shadow-up)}}
+.ak-btn:active,.ak-lift:active{transform:translateY(0) scale(.97);transition-duration:.12s}
+.ak-lift{transition:transform .35s var(--ak-spring),box-shadow .3s ease}
+.ak-wide{display:flex;width:100%}
+.ak-arrow{display:inline-block;transition:transform .35s var(--ak-spring)}
+/* core: dark pill with arrow = THE primary action */
+.ak-btn-primary{background:var(--ak-navy);color:#fff;text-transform:uppercase;letter-spacing:.07em;font-size:15px}
+[data-theme=dark] .ak-btn-primary{background:#e8eef5;color:var(--ak-navy)}
+@media(hover:hover){.ak-btn-primary:hover .ak-arrow{transform:translateX(5px)}}
+/* core: split pill + arrow bubble = contact / book / ask */
+.ak-btn-split{gap:4px;padding:0;background:none;box-shadow:none;color:#fff;overflow:visible}
+.ak-btn-split .ak-split-label{display:flex;align-items:center;min-height:56px;padding:0 22px;border-radius:999px;background:#15646a;box-shadow:var(--ak-shadow)}
+.ak-btn-split .ak-split-arrow{display:grid;place-items:center;width:56px;height:56px;flex:none;border-radius:50%;background:var(--ak-pink);color:var(--ak-navy);font-size:22px;font-weight:800;box-shadow:var(--ak-shadow);transition:transform .45s var(--ak-spring)}
+@media(hover:hover){.ak-btn-split:hover{box-shadow:none}.ak-btn-split:hover .ak-split-arrow{transform:translateX(3px) rotate(45deg)}.ak-btn-split:hover .ak-split-label,.ak-btn-split:hover .ak-split-arrow{box-shadow:var(--ak-shadow-up)}}
+/* core: icon-circle pill = secondary actions in sheets */
+.ak-btn-icon{gap:12px;padding:6px 22px 6px 6px;background:var(--ak-card);color:var(--ak-ink);box-shadow:var(--ak-shadow),inset 0 0 0 1px var(--ak-line)}
+.ak-btn-icon .ak-ic{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;background:var(--ak-ic,var(--ak-teal));color:#fff;transition:transform .4s var(--ak-spring)}
+.ak-btn-icon .ak-ic svg{width:20px;height:20px;fill:currentColor}
+.ak-ic-pink{--ak-ic:var(--ak-magenta)}.ak-ic-navy{--ak-ic:var(--ak-navy)}
+[data-theme=dark] .ak-ic-navy{--ak-ic:#2c4a72}
+@media(hover:hover){.ak-btn-icon:hover .ak-ic{transform:scale(1.08) rotate(-8deg)}}
+/* sparing: glow gradient = ONLY the single AI action */
+.ak-btn-ai{color:#fff;background:linear-gradient(115deg,#15646a,#1d7f86 30%,#a3154f 70%,#15646a);background-size:250% 100%;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 8px 26px rgba(194,24,91,.38),0 0 22px rgba(95,196,201,.4);animation:ak-glow 6s ease-in-out infinite alternate}
+@keyframes ak-glow{to{background-position:100% 0}}
+@media(hover:hover){.ak-btn-ai:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 14px 34px rgba(194,24,91,.5),0 0 32px rgba(95,196,201,.6)}}
+.ak-spark{width:18px;height:18px;flex:none;fill:#fff;animation:ak-twinkle 2.4s ease-in-out infinite}
+@keyframes ak-twinkle{50%{transform:scale(.7) rotate(45deg);opacity:.75}}
+/* sparing: glass = ONLY on the dark hero */
+.ak-btn-glass{color:#fff;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.38);-webkit-backdrop-filter:blur(12px) saturate(1.3);backdrop-filter:blur(12px) saturate(1.3);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -8px 18px rgba(95,196,201,.18),0 8px 24px rgba(0,0,0,.28);text-shadow:0 1px 2px rgba(0,0,0,.35)}
+@media(hover:hover){.ak-btn-glass:hover{background:rgba(255,255,255,.2)}}
+/* sparing: day/night theme switch */
+.ak-toggle-theme{position:relative;display:inline-block;vertical-align:middle;flex:none;width:84px;height:56px;padding:0;border:0;background:none;cursor:pointer;border-radius:999px}
+.ak-tt-track{position:absolute;left:4px;right:4px;top:10px;bottom:10px;overflow:hidden;border-radius:999px;background:#4aa6c9;box-shadow:inset 0 2px 6px rgba(0,0,0,.3),0 0 0 2px rgba(255,255,255,.6);transition:background-color .5s}
+.ak-tt-track::before{content:"";position:absolute;right:-4px;bottom:-6px;width:46px;height:24px;background:radial-gradient(circle at 12px 16px,#fff 9px,transparent 10px),radial-gradient(circle at 26px 10px,#fff 11px,transparent 12px),radial-gradient(circle at 40px 16px,#fff 9px,transparent 10px);transition:transform .5s var(--ak-out),opacity .4s}
+.ak-tt-track::after{content:"";position:absolute;left:8px;top:6px;width:30px;height:22px;background:radial-gradient(circle at 3px 4px,#fff 1.5px,transparent 2px),radial-gradient(circle at 18px 2px,#fff 1px,transparent 1.5px),radial-gradient(circle at 12px 14px,#fff 1.5px,transparent 2px),radial-gradient(circle at 27px 18px,#fff 1px,transparent 1.5px);opacity:0;transform:translateY(-10px);transition:transform .5s var(--ak-out),opacity .4s}
+.ak-tt-knob{position:absolute;left:4px;top:4px;width:28px;height:28px;border-radius:50%;background:#ffd166;box-shadow:0 0 0 4px rgba(255,209,102,.35),0 2px 4px rgba(0,0,0,.3);transition:transform .55s var(--ak-spring),background-color .4s,box-shadow .4s}
+.ak-toggle-theme[aria-pressed=true] .ak-tt-track{background:#0f1b2d}
+.ak-toggle-theme[aria-pressed=true] .ak-tt-track::before{transform:translateY(24px);opacity:0}
+.ak-toggle-theme[aria-pressed=true] .ak-tt-track::after{transform:none;opacity:1}
+.ak-toggle-theme[aria-pressed=true] .ak-tt-knob{transform:translateX(40px) rotate(-30deg);background:radial-gradient(circle at 9px 10px,#b8c3d1 3px,transparent 3.5px),radial-gradient(circle at 18px 18px,#b8c3d1 4px,transparent 4.5px),#e8eef5;box-shadow:0 0 0 4px rgba(232,238,245,.15),0 2px 4px rgba(0,0,0,.4)}
+
 @media(prefers-reduced-motion:reduce){
+.ak-btn:hover,.ak-lift:hover{transform:none!important}
 *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 .ak-tile{--rx:0deg!important;--ry:0deg!important}
 .ak-js .ak-reveal{opacity:1;transform:none}
@@ -158,8 +200,20 @@ main.wrap{margin-top:-52px;position:relative;z-index:1}
 .t6{background:linear-gradient(150deg,#1b2a44,#0f1b2d)}
 @media(hover:hover){.t5:hover{box-shadow:var(--ak-shadow-up),inset 0 0 0 3px var(--ak-teal)}}
 @media(min-width:720px){.t1{grid-row:span 2;min-height:288px}.t6{grid-column:span 4;min-height:120px}}
-.mlink{display:block;margin:18px auto 0;background:none;border:0;color:var(--ak-accent);font-weight:700;font-size:15px;min-height:56px;padding:0 16px;cursor:pointer;text-decoration:underline}
+.herobtn{margin:16px 0 0}
 footer{text-align:center;color:var(--ak-mut);font-size:13px;padding:10px 16px 110px}footer p{margin:4px 0}footer a{color:var(--ak-accent)}
+footer .more{margin:6px 0 18px}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 14px}
+.small{font-size:12px;color:var(--ak-mut);margin:6px 0 0}
+/* style gallery */
+.gallery{margin:34px 0 26px}.gallery h2{font-size:22px;margin:0 0 4px;letter-spacing:-.01em}.gallery>p{color:var(--ak-mut);margin:0 0 14px;font-size:14px}
+.gal{display:grid;gap:12px}@media(min-width:620px){.gal{grid-template-columns:1fr 1fr}}
+.gi{background:var(--ak-card);border-radius:22px;padding:16px;box-shadow:var(--ak-shadow)}
+.gi .spec{display:flex;flex-wrap:wrap;gap:10px;align-items:center;min-height:64px;margin:0 0 10px}
+.gi .spec .ak-btn{cursor:default}
+.gi .spec.dark{background:linear-gradient(135deg,#0f1b2d,#155e66 70%,#8a1f5a);border-radius:16px;padding:12px}
+.gi b{display:block;font-size:15px}.gi p{margin:2px 0 0;font-size:14px;color:var(--ak-mut)}
+.gi code{font-size:12px;color:var(--ak-accent)}
 footer .ap{color:var(--ak-ink);font-weight:600;font-size:14px}
 /* sheet contents */
 .note{font-size:13px;color:var(--ak-mut);margin:0 0 12px}
@@ -222,7 +276,7 @@ input[type=range]{width:100%;height:44px;accent-color:var(--ak-teal);margin:0}
 .bot.unk{border-color:var(--ak-pink);background:var(--pinkbg)}
 .typing{width:60%;padding:2px 0}.typing .ak-skel{margin:6px 0}
 form.ask{display:flex;gap:8px}form.ask input{flex:1;min-width:0;min-height:56px;padding:10px 14px;border:1px solid var(--ak-line);border-radius:16px;font:inherit;font-size:16px;background:var(--ak-card);color:var(--ak-ink)}
-form.ask button{background:linear-gradient(135deg,#1d7f86,#15646a);color:#fff;border:0;border-radius:16px;padding:0 22px;font-weight:800;cursor:pointer;min-height:56px}
+form.ask .ak-btn{flex:none;padding:0 20px}
 /* engineer + manual */
 .f{background:#0f1b2d;color:#fff;border:1px solid var(--ak-line);border-radius:16px;padding:14px;font-size:19px;text-align:center;font-family:"Cambria Math","Times New Roman",serif;overflow-x:auto;white-space:nowrap}
 .eng h3{font-size:16px;margin:16px 0 4px;color:var(--ak-accent)}.eng p{margin:0 0 8px}
@@ -234,11 +288,12 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 <div id="app">
 <p class="demo">Demo with a made-up machine and a sample manual. Not a real product or company.</p>
 <header class="ak-hero"><div class="wrap">
-<div class="top"><span class="brand">Ask <i>Avisha</i></span><button class="ak-toggle" type="button" data-ak-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">🌙</button></div>
+<div class="top"><span class="brand">Ask <i>Avisha</i></span><button class="ak-toggle-theme" type="button" data-ak-theme-toggle aria-pressed="false" aria-label="Dark mode"><span class="ak-tt-track" aria-hidden="true"><span class="ak-tt-knob"></span></span></button></div>
 <div class="mc ak-glass"><div class="ic" aria-hidden="true">🔥</div><div>
 <h1>HX-101</h1><p class="sub">Shell-and-tube heat exchanger · Example Process Equipment (fictional)</p>
 <span class="pill"><i></i>Running normally</span></div></div>
 <p class="lead">Tap a tile. <span>Answers in one second.</span></p>
+<button class="ak-btn ak-btn-glass herobtn" type="button" data-open="manual"><span aria-hidden="true">📄</span>Read the sample manual</button>
 </div></header>
 <main class="wrap">
 <div class="ak-bento ak-reveal">
@@ -249,12 +304,25 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 <button class="ak-tile ak-tilt t5" type="button" data-open="ask"><span class="e" aria-hidden="true">💬</span><span class="go" aria-hidden="true">↗</span><b>Ask a question</b><span class="s">Answers from manual</span></button>
 <button class="ak-tile ak-tilt ak-w2 t6" type="button" data-open="eng"><span class="e" aria-hidden="true">🔧</span><span class="go" aria-hidden="true">↗</span><b>Engineer view</b><span class="s">Formulas and data</span></button>
 </div>
-<button class="mlink ak-reveal" type="button" data-open="manual">📄 Read the sample manual</button>
+<section class="gallery ak-reveal" id="gallery" aria-labelledby="galh">
+<h2 id="galh">Style gallery</h2>
+<p>Avisha's chosen button set and where each one is used on this page. The samples below are pictures, not buttons.</p>
+<div class="gal" aria-hidden="false">
+<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-primary">Learn more <span class="ak-arrow">→</span></span></div><b>Dark pill with arrow <code>.ak-btn-primary</code></b><p>The one main action on a screen: "Learn more" at the bottom, "Check" in Is today normal?, "Ask" in the question box.</p></div>
+<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-split"><span class="ak-split-label">Contact support</span><span class="ak-split-arrow">↗</span></span></div><b>Split pill with arrow bubble <code>.ak-btn-split</code></b><p>Reaching a person: "Contact support" in Something's wrong?</p></div>
+<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-icon"><span class="ak-ic"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch now</span><span class="ak-btn ak-btn-icon"><span class="ak-ic ak-ic-navy"><svg viewBox="0 0 24 24"><path d="M5 5h14v2H5zm0 6h14v2H5zm0 6h9v2H5z"/></svg></span>Cheat sheet</span><span class="ak-btn ak-btn-icon"><span class="ak-ic ak-ic-pink"><svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.2V17h16V7.2l-8 5.3z"/></svg></span>Contact us</span></div><b>Icon-circle pills <code>.ak-btn-icon</code></b><p>Extra actions inside the sheets: Watch it work, Engineer view, Ask a question.</p></div>
+<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-ai"><svg class="ak-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg>Ask Avisha</span></div><b>Glow gradient <code>.ak-btn-ai</code></b><p>Only for the single AI action: the floating "Ask Avisha" button.</p></div>
+<div class="gi"><div class="spec dark" aria-hidden="true"><span class="ak-btn ak-btn-glass">Read the sample manual</span></div><b>Glass <code>.ak-btn-glass</code></b><p>Only on the dark header at the top.</p></div>
+<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-toggle-theme" aria-pressed="false"><span class="ak-tt-track"><span class="ak-tt-knob"></span></span></span><span class="ak-toggle-theme" aria-pressed="true"><span class="ak-tt-track"><span class="ak-tt-knob"></span></span></span></div><b>Day/night switch <code>.ak-toggle-theme</code></b><p>Top right: light or dark theme (starts with your device setting).</p></div>
+<div class="gi"><div class="spec" aria-hidden="true"><span class="ak-btn ak-btn-icon"><span class="ak-ic">↑</span>Hover me</span></div><b>Lift on hover</b><p>Every button and tile rises a little under the mouse and presses in when tapped.</p></div>
+</div>
+</section>
 </main>
 <footer class="ak-reveal">
+<p class="more"><a class="ak-btn ak-btn-primary" href="https://avisha.ai" aria-label="Learn more about Avisha">Learn more <span class="ak-arrow" aria-hidden="true">→</span></a></p>
 <p class="ap">Approved by: (company engineer) · Powered by Avisha</p>
 <p>How it works: QR on the machine → tap → answers from your own manual.</p>
-<p>Demo only; HX-101 and Example Process Equipment are made up. <a href="https://avisha.ai">avisha.ai</a> · <a href="https://lwa.avisha.ai">Learn with Avisha</a> · <a href="mailto:info@avisha.ai">info@avisha.ai</a></p>
+<p>Demo only; HX-101 and Example Process Equipment are made up. <a href="https://avisha.ai">avisha.ai</a> · <a href="https://lwa.avisha.ai">Learn with Avisha</a> · <a href="mailto:info@avisha.ai">info@avisha.ai</a> · <a href="#gallery">Style gallery</a></p>
 </footer>
 </div>
 
@@ -266,7 +334,7 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 <li><button class="ak-dial-item" type="button" data-open="today">Is today normal?<span class="ak-ico" aria-hidden="true">📈</span></button></li>
 <li><button class="ak-dial-item" type="button" data-open="check">Start-up checklist<span class="ak-ico" aria-hidden="true">✅</span></button></li>
 </ul>
-<button class="ak-fab" type="button" aria-expanded="false" aria-controls="dialmenu"><span class="ak-plus" aria-hidden="true">＋</span><span class="ak-fab-text">Ask Avisha</span></button>
+<button class="ak-btn ak-btn-ai ak-fab" type="button" aria-expanded="false" aria-controls="dialmenu"><svg class="ak-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg><span class="ak-fab-text">Ask Avisha</span></button>
 </div>
 
 <div class="ak-scrim" id="sheet" aria-hidden="true">
@@ -277,6 +345,7 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 
 <div class="pane" data-p="watch" hidden>
 <p class="note">Engineer-checked explainers from Learn with Avisha. First the 3-point recap (tap right for next, left for back), then the videos. Videos need an internet connection.</p>
+<div class="acts"><button class="ak-btn ak-btn-icon" type="button" id="watchnow"><span class="ak-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch now</button></div>
 <div class="ak-stories" id="st" role="region" aria-roledescription="story cards" aria-label="What you will learn: 3 points">
 <div class="ak-bars" aria-hidden="true"></div>
 <button class="ak-pause" type="button" aria-label="Pause the cards">❚❚</button>
@@ -326,6 +395,8 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 </div>
 <div id="symr" aria-live="polite"></div>
 <p class="stop">If unsure, stop and call support: make it safe as your site procedure says, then call Example Process Equipment support.</p>
+<div class="acts" style="margin-top:14px"><a class="ak-btn ak-btn-split" href="mailto:info@avisha.ai?subject=HX-101%20demo%3A%20support"><span class="ak-split-label">Contact support</span><span class="ak-split-arrow" aria-hidden="true">↗</span></a></div>
+<p class="small">Demo: the machine maker is made up, so this button emails Avisha (info@avisha.ai).</p>
 </div>
 
 <div class="pane" data-p="today" hidden>
@@ -335,7 +406,7 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 <input type="range" id="dpi" min="0.20" max="0.80" step="0.01" value="0.42"><small>Sample baseline 0.40 bar · normal up to 0.48 bar (+20%)</small></div>
 <div class="fld"><label for="ti">Cold-side outlet temperature <output id="to">60.0 °C</output></label>
 <input type="range" id="ti" min="50" max="66" step="0.5" value="60"><small>Sample baseline 60 °C · normal down to 57 °C (−3 °C)</small></div>
-<button class="ak-btn" id="chk" type="button">Check</button>
+<button class="ak-btn ak-btn-primary ak-wide" id="chk" type="button">Check</button>
 <div class="chips"><button class="chip" type="button" id="dnorm">Load a normal day</button><button class="chip x2" type="button" id="dfoul">Try a fouled day</button></div>
 <div id="verdict" aria-live="polite"></div>
 <div class="spk"><svg id="spk" width="200" height="48" viewBox="0 0 200 48" role="img" aria-label="Pressure drop over the last 10 sample days"></svg><span>Pressure drop, last 10 sample days (today last). Dashed: baseline and +20%.</span></div>
@@ -353,11 +424,14 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 <button class="chip q" type="button">The outlet isn't getting hot enough</button>
 <button class="chip q x2" type="button">What's the warranty?</button>
 </div>
-<form class="ask" id="ask"><input id="q" type="text" placeholder="Type a question…" aria-label="Your question" autocomplete="off"><button type="submit">Ask</button></form>
+<form class="ask" id="ask"><input id="q" type="text" placeholder="Type a question…" aria-label="Your question" autocomplete="off"><button class="ak-btn ak-btn-primary" type="submit">Ask <span class="ak-arrow" aria-hidden="true">→</span></button></form>
+<div class="acts" style="margin-top:14px"><a class="ak-btn ak-btn-icon" href="mailto:info@avisha.ai?subject=Ask%20Avisha%20for%20our%20machines"><span class="ak-ic ak-ic-pink" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.2V17h16V7.2l-8 5.3z"/></svg></span>Contact us</a></div>
+<p class="small">Want Ask Avisha for your own machines? This emails Avisha (info@avisha.ai).</p>
 <p class="note" style="margin-top:10px">Demo: answers are picked from a small built-in list by keywords. In the real product every question is logged, and unanswered ones go to the company in a weekly report.</p>
 </div>
 
 <div class="pane eng" data-p="eng" hidden>
+<div class="acts"><button class="ak-btn ak-btn-icon" type="button" id="cheat"><span class="ak-ic ak-ic-navy" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v2H5zm0 6h14v2H5zm0 6h9v2H5z"/></svg></span>Cheat sheet</button></div>
 <p class="note">For engineers. From manual section 10. Values marked <span class="sv">sample</span> are illustrative, not real specifications.</p>
 <h3>Overall heat transfer coefficient</h3>
 <div class="f">1/U = 1/h<sub>o</sub> + R<sub>f,o</sub> + x<sub>w</sub>/k<sub>w</sub> + R<sub>f,i</sub> + 1/h<sub>i</sub></div>
@@ -369,7 +443,7 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 <div>U = <span class="uout" id="uo">678</span> W/m²·K · <span id="up">73% of clean</span> (clean U ≈ <span id="uc">930</span>, with the <span class="sv">sample</span> data below)</div></div>
 <h3>What baffles do</h3>
 <p>Closer baffle spacing raises the shell-side velocity, so h<sub>o</sub> goes up, and the shell-side pressure drop goes up too. Spacing is a trade-off fixed at design. Baffles also support the tubes against vibration. <span class="ref">§2.2, §10.3</span></p>
-<h3>Design data <span class="sv">sample values</span></h3>
+<h3 id="ds" tabindex="-1">Design data <span class="sv">sample values</span></h3>
 <table><tr><th>Item</th><th>Value</th></tr>
 <tr><td>Shell-side film coefficient h<sub>o</sub></td><td>1,500 W/m²·K <span class="sv">sample</span></td></tr>
 <tr><td>Tube-side film coefficient h<sub>i</sub></td><td>3,000 W/m²·K <span class="sv">sample</span></td></tr>
@@ -409,7 +483,7 @@ table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}td,th{text
 </div></div></div>
 
 <script>
-/* Avisha design kit v1 (27 Nov 2026). No libraries, no tracking. Exposes window.AK. See README.md. */
+/* Avisha design kit v2 (27 Nov 2026). No libraries, no tracking. Exposes window.AK. See README.md. */
 (function(w,d){"use strict";
 var mq=function(q){return w.matchMedia?w.matchMedia(q):{matches:false};};
 var RM=mq("(prefers-reduced-motion: reduce)"),FINE=mq("(hover: hover) and (pointer: fine)");
@@ -421,7 +495,7 @@ var AK={reduced:rm};
 
 /* ripple on tap */
 d.addEventListener("pointerdown",function(e){
-var t=e.target.closest&&e.target.closest(".ak-tile,.ak-btn,.ak-fab,.ak-dial-item,[data-ak-ripple]");if(!t||rm())return;
+var t=e.target.closest&&e.target.closest(".ak-tile,.ak-btn,.ak-dial-item,[data-ak-ripple]");if(!t||rm()||t.classList.contains("ak-btn-split"))return;
 var r=t.getBoundingClientRect(),s=Math.max(r.width,r.height)*2.2,c=d.createElement("span");
 c.className="ak-rip";c.setAttribute("aria-hidden","true");
 c.style.cssText="width:"+s+"px;height:"+s+"px;left:"+(e.clientX-r.left-s/2)+"px;top:"+(e.clientY-r.top-s/2)+"px";
@@ -540,7 +614,8 @@ AK.reveal=reveal;
 
 /* light / dark theme */
 function theme(t){var h=d.documentElement;if(t)h.setAttribute("data-theme",t);t=h.getAttribute("data-theme")||"light";
-each(d.querySelectorAll("[data-ak-theme-toggle]"),function(b){var dk=t==="dark";b.setAttribute("aria-pressed",dk?"true":"false");b.setAttribute("aria-label",dk?"Switch to light mode":"Switch to dark mode");b.textContent=dk?"☀️":"🌙";});
+each(d.querySelectorAll("[data-ak-theme-toggle]"),function(b){b.setAttribute("aria-pressed",t==="dark"?"true":"false");if(!b.getAttribute("aria-label"))b.setAttribute("aria-label","Dark mode");
+if(!b.querySelector(".ak-tt-track")){var tr=d.createElement("span");tr.className="ak-tt-track";tr.setAttribute("aria-hidden","true");var k=d.createElement("span");k.className="ak-tt-knob";tr.appendChild(k);b.textContent="";b.appendChild(tr);}});
 var m=d.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?"#0b1320":"#0f1b2d");return t;}
 AK.theme=theme;
 
@@ -577,6 +652,8 @@ $("sheet").addEventListener("ak:close",function(){cur=null;st.stop();for(var v=0
 /* ---- watch: story cards ---- */
 st=AK.stories("st",{ms:5000});
 $("replay").addEventListener("click",function(){st.start();});
+$("watchnow").addEventListener("click",function(){st.stop();var v=vids[0];v.scrollIntoView({behavior:AK.reduced()?"auto":"smooth",block:"center"});var p=v.play();if(p&&p.catch)p.catch(function(){});});
+$("cheat").addEventListener("click",function(){$("ds").scrollIntoView({behavior:AK.reduced()?"auto":"smooth",block:"start"});});
 
 /* ---- checklist: ring + checkmark + confetti ---- */
 var boxes=document.querySelectorAll("#check input"),prog=$("prog"),done=$("done"),wasAll=false;
