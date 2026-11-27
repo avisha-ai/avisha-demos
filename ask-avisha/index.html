@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ask Avisha: HX-101 heat exchanger | Avisha demo</title>
+<meta name="description" content="Demo of Ask Avisha for machines: scan the QR code on a machine, watch how it works, and ask questions answered only from the approved manual. Made-up machine, sample manual.">
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#0f1b2d;background:#f5f7fa;line-height:1.55}
+.demo{background:#ffd6e8;color:#0f1b2d;font-weight:700;text-align:center;padding:10px 16px;font-size:14px;margin:0}
+header{background:#0f1b2d;color:#fff;padding:26px 20px 24px}header .w,main,footer .w{max-width:760px;margin:0 auto}
+.lab{font-size:12px;font-weight:700;letter-spacing:.12em;color:#5fc4c9;text-transform:uppercase;margin:0 0 8px}
+h1{font-size:clamp(24px,5vw,34px);line-height:1.15;margin:0 0 8px}.tag{margin:0;color:#c9d3df;font-size:15px}
+.plate{display:inline-flex;flex-wrap:wrap;gap:6px 14px;margin:14px 0 0;font-size:13px;color:#c9d3df}.plate b{color:#fff}
+main{padding:20px 16px}p{margin:0 0 12px}
+h2{color:#1d7f86;font-size:15px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px}
+.card{background:#fff;border-radius:12px;padding:18px;margin:0 0 18px;box-shadow:0 1px 3px rgba(15,27,45,.08)}
+.sub{color:#4a5566;font-size:14px;margin:0 0 12px}.small{font-size:13px;color:#4a5566}
+.vids{display:grid;gap:14px}@media(min-width:640px){.vids{grid-template-columns:1fr 1fr}}
+video{width:100%;border-radius:8px;background:#0f1b2d;display:block;aspect-ratio:16/9}
+.vt{font-weight:600;font-size:14px;margin:6px 0 0}.vt span{display:block;font-weight:400;color:#4a5566;font-size:13px}
+ol.check{list-style:none;padding:0;margin:0;counter-reset:c}ol.check li{counter-increment:c;display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #e6e9ee}
+ol.check li:last-child{border-bottom:0}ol.check input{width:20px;height:20px;margin:2px 0 0;accent-color:#1d7f86;flex:none}
+ol.check label{flex:1;cursor:pointer}ol.check li.done label{color:#4a5566;text-decoration:line-through}
+.ref{font-size:12px;color:#1d7f86;white-space:nowrap}
+.prog{font-size:13px;color:#1d7f86;font-weight:600;margin:10px 0 0}
+.chat{border:1px solid #e6e9ee;border-radius:10px;background:#f9fbfc;padding:12px;min-height:160px;max-height:420px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:9px 12px;border-radius:12px;font-size:15px}
+.me{align-self:flex-end;background:#0f1b2d;color:#fff;border-bottom-right-radius:4px}
+.bot{align-self:flex-start;background:#fff;border:1px solid #dfe9ee;border-bottom-left-radius:4px}
+.bot.unk{border-color:#e86fa8;background:#fdeef5}
+.src{display:block;margin-top:6px;font-size:12px;color:#1d7f86;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{border:1px solid #1d7f86;color:#1d7f86;background:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+.chip:hover,.chip:focus{background:#e6f4f5}.chip.x{border-color:#e86fa8;color:#b3477b}
+form.ask{display:flex;gap:8px}form.ask input{flex:1;min-width:0;padding:10px 12px;border:1px solid #b8c0ca;border-radius:8px;font:inherit}
+form.ask button{background:#1d7f86;color:#fff;border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+details{font-size:14px;margin:12px 0 0}summary{cursor:pointer;color:#1d7f86;font-weight:600}
+.man h3{font-size:14px;margin:14px 0 4px}.man p,.man li{font-size:14px}.man ul{margin:0 0 8px;padding-left:20px}
+.sv{background:#fff4d6;padding:0 4px;border-radius:3px;font-size:13px}
+.strip{background:#e6f4f5;border-radius:10px;padding:12px 14px;font-size:13px;color:#0f1b2d;margin:0 0 18px}
+.how{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin:8px 0 0;padding:0;list-style:none}
+.how li{background:#fff;border-radius:8px;padding:10px;font-size:13px;border-top:3px solid #5fc4c9}.how b{display:block;color:#1d7f86}
+footer{background:#0f1b2d;color:#fff;padding:22px 20px}footer p{margin:0 0 8px;font-size:14px}footer a{color:#5fc4c9}
+</style></head><body>
+<p class="demo">Demo with a made-up machine and a sample manual. Not a real product or company.</p>
+<header><div class="w"><p class="lab">Ask Avisha · scanned from the QR code on this machine</p>
+<h1>HX-101 Shell-and-tube heat exchanger</h1>
+<p class="tag">Example Process Equipment (fictional maker)</p>
+<div class="plate"><span>Tag: <b>HX-101</b></span><span>Type: <b>shell-and-tube, 1 shell pass</b></span><span>Manual: <b>HX-101 sample manual, rev. A</b></span></div>
+</div></header>
+<main>
+
+<section class="card"><h2>Watch: how HX-101 works (2 min)</h2>
+<p class="sub">Two short engineer-checked explainers from Learn with Avisha. (Videos need an internet connection; the rest of this page works offline.)</p>
+<div class="vids">
+<div><video controls preload="none" playsinline poster="https://lwa.avisha.ai/media/lwa_s1e01_the_flip_3d_poster.jpg" src="https://lwa.avisha.ai/media/lwa_s1e01_the_flip_3d.mp4"></video>
+<p class="vt">1. Which way the fluids flow<span>Why countercurrent flow moves more heat in the same exchanger.</span></p></div>
+<div><video controls preload="none" playsinline poster="https://lwa.avisha.ai/media/lwa_s1e02_the_fouling_problem_3d_poster.jpg" src="https://lwa.avisha.ai/media/lwa_s1e02_the_fouling_problem_3d.mp4"></video>
+<p class="vt">2. The fouling problem<span>How a thin deposit in the tubes cuts heat transfer, and what to watch.</span></p></div>
+</div>
+</section>
+
+<section class="card"><h2>Before you start</h2>
+<p class="sub">From the HX-101 sample manual, section 3. Tick each step as you go.</p>
+<ol class="check" id="check">
+<li><input type="checkbox" id="c1"><label for="c1">You have the site permit or start-up sign-off, and you know which fluid is on the tube side and which is on the shell side. <span class="ref">§3.1</span></label></li>
+<li><input type="checkbox" id="c2"><label for="c2">Inspection is complete: bolts and gaskets in place, no visible leaks, insulation and guards fitted. <span class="ref">§3.2</span></label></li>
+<li><input type="checkbox" id="c3"><label for="c3">Valves lined up: drains closed, vents ready, inlet and outlet valves in the start-up position, pressure relief devices in service and not isolated. <span class="ref">§3.3</span></label></li>
+<li><input type="checkbox" id="c4"><label for="c4">Gauges and thermometers on both sides are fitted and readable. <span class="ref">§3.4</span></label></li>
+<li><input type="checkbox" id="c5"><label for="c5">Bring the cold side in first. Open slowly and vent air from the high point until only liquid comes out, then close the vent. <span class="ref">§4.1</span></label></li>
+<li><input type="checkbox" id="c6"><label for="c6">Then bring the hot side in slowly, venting the same way. Avoid sudden temperature changes. <span class="ref">§4.2</span></label></li>
+<li><input type="checkbox" id="c7"><label for="c7">Check for leaks again once warm, then record the first pressure drops and temperatures as today's baseline. <span class="ref">§4.3</span></label></li>
+<li><input type="checkbox" id="c8"><label for="c8">Never go above the design pressure or temperature on the nameplate. <span class="ref">§8.1</span></label></li>
+</ol>
+<p class="prog" id="prog" aria-live="polite">0 of 8 done</p>
+</section>
+
+<section class="card"><h2>Ask about HX-101</h2>
+<p class="sub">Answers come only from the manual approved by Example Process Equipment's engineer. If it isn't in the manual, it says so.</p>
+<div class="chat" id="chat" aria-live="polite"><div class="msg bot">Hi. Ask me anything about operating HX-101. I answer only from its approved manual.</div></div>
+<div class="chips" id="chips">
+<button class="chip" type="button">Why is the pressure drop rising?</button>
+<button class="chip" type="button">What does fouling look like?</button>
+<button class="chip" type="button">What are baffles for?</button>
+<button class="chip" type="button">Can I clean it while running?</button>
+<button class="chip" type="button">Which side do I start first?</button>
+<button class="chip" type="button">The outlet isn't getting hot enough</button>
+<button class="chip x" type="button">What's the warranty?</button>
+</div>
+<form class="ask" id="ask"><input id="q" type="text" placeholder="Type a question…" aria-label="Your question" autocomplete="off"><button type="submit">Ask</button></form>
+<p class="small" style="margin-top:10px">Demo: answers are picked from a small built-in list by keywords. In the real product every question is logged, and unanswered ones go to the company in a weekly report.</p>
+</section>
+
+<section class="card man"><h2>HX-101 sample manual</h2>
+<p class="sub">Sample text written for this demo. Values marked <span class="sv">sample value</span> are illustrative, not real specifications. Always follow your own site procedures and the real maker's manual.</p>
+<details><summary>Read the sample manual</summary>
+<h3>1. What HX-101 is</h3>
+<p>HX-101 is a shell-and-tube heat exchanger. One fluid flows through the tubes (tube side); the other flows around the tubes inside the shell (shell side). Heat passes through the tube walls. The two fluids never mix. The fluids flow in opposite directions (countercurrent), which moves the most heat for this size of exchanger.</p>
+<h3>2. Main parts</h3>
+<p><b>2.1 Tube bundle:</b> the tubes, fixed in a tube sheet at each end. <b>2.2 Baffles:</b> plates across the shell that hold the tubes in place and stop them vibrating, and make the shell-side fluid flow back and forth across the tubes instead of straight along the shell. Crossflow moves heat better. Baffles also cause much of the shell-side pressure drop. <b>2.3 Vents and drains:</b> a vent at the high point and a drain at the low point on each side. <b>2.4 Relief device:</b> protects the shell from overpressure.</p>
+<h3>3. Before start-up</h3>
+<p>3.1 Permit or sign-off in place; know which fluid is on which side. 3.2 Bolts, gaskets, insulation and guards in place; no visible leaks. 3.3 Drains closed, vents ready, valves in the start-up position, relief devices in service and not isolated. 3.4 Pressure gauges and thermometers on both sides fitted and readable.</p>
+<h3>4. Start-up</h3>
+<p>4.1 Bring the cold side in first. Open the inlet slowly and vent air from the high point until only liquid comes out. Trapped air blankets tube surface, so less heat is transferred, and can cause hammering. 4.2 Then bring the hot side in slowly and vent it the same way. Heating up slowly avoids thermal shock and stress at the tube joints and gaskets. 4.3 When warm, check again for leaks and record pressure drops and temperatures as the baseline.</p>
+<h3>5. Normal running</h3>
+<p>5.1 Each shift, record inlet and outlet temperatures and the pressure drop on both sides. 5.2 Compare with the clean baseline at the same flow. Sample baseline: tube-side pressure drop <span class="sv">sample value 0.4 bar</span> at design flow. 5.3 A rising pressure drop at the same flow, or outlet temperatures drifting away from the baseline, means the exchanger needs attention (see sections 6 and 9).</p>
+<h3>6. Fouling</h3>
+<p>6.1 Fouling is a layer of deposit (scale, sludge, corrosion products, biological growth) on the tube surfaces. 6.2 Signs: less heat transferred (the cold outlet is cooler and the hot outlet is hotter than the baseline at the same flows), and often a slowly rising pressure drop. 6.3 Trend the readings; one reading is not enough. Plan cleaning when the trend reaches the limit set by your site. Sample cleaning trigger: <span class="sv">sample value: pressure drop 1.5 × clean baseline</span>.</p>
+<h3>7. Shutdown and cleaning</h3>
+<p>7.1 Shutdown: reduce and isolate the hot side first, then the cold side, so the exchanger cools without overheating the cold side. 7.2 Never open, clean or remove covers while HX-101 is running or under pressure. Cleaning needs a shutdown, both sides isolated, depressurised, drained, cooled and made safe under your site's permit. 7.3 Tubes can be cleaned mechanically or chemically by trained people following the cleaning procedure.</p>
+<h3>8. Safety</h3>
+<p>8.1 Do not exceed the design pressure or temperature shown on the nameplate. 8.2 Never isolate the relief device while the exchanger is in service. 8.3 Wear the protective equipment your site requires; surfaces can be hot.</p>
+<h3>9. Troubleshooting</h3>
+<p>9.1 <b>Pressure drop rising:</b> fouling or blockage in the tubes or shell; a blocked upstream strainer; a partly closed valve; or a flow higher than normal. Check the flow and valves first, then trend for fouling. 9.2 <b>Not enough heating or cooling:</b> fouling; air not vented; a flow lower than normal; or an inlet temperature different from normal. 9.3 <b>Leak or one fluid found in the other:</b> report it and follow your site procedure; a tube or gasket may be leaking. Isolate as your procedure says.</p>
+</details>
+</section>
+
+<div class="strip"><b>Approved by:</b> (company engineer) · <b>Last updated:</b> 27 Nov 2026 (demo) · <b>Powered by Avisha</b></div>
+
+<section class="card"><h2>How this works</h2>
+<ol class="how">
+<li><b>1. QR on the machine</b>Operators scan it with any phone.</li>
+<li><b>2. Video + answers</b>A short explainer, and answers only from your manual.</li>
+<li><b>3. Your engineer approves</b>One click before anything goes live.</li>
+<li><b>4. Updates automatically</b>New manual revision → new answers, approved again.</li>
+</ol>
+</section>
+</main>
+<footer><div class="w"><p><b>Ask Avisha</b> for machines: a video and a manual-only tutor behind a QR code. Demo only; HX-101 and Example Process Equipment are made up.</p>
+<p><a href="https://avisha.ai">avisha.ai</a> | <a href="https://lwa.avisha.ai">Learn with Avisha</a> | <a href="mailto:info@avisha.ai">info@avisha.ai</a></p></div></footer>
+<script>
+(function(){
+var KB=[
+{k:["pressure drop","dp","delta p","differential","pressure rising","pressure is rising","pressure high","high pressure drop"],s:"9.1",a:"A rising pressure drop at the same flow usually means fouling or a blockage in the tubes or shell. Other causes: a blocked upstream strainer, a partly closed valve, or a flow higher than normal. Check the flow and valves first, then trend the readings for fouling."},
+{k:["fouling","foul","deposit","scale","dirty","grime","sludge","fouled"],s:"6.1–6.3",a:"Fouling is a layer of deposit (scale, sludge, corrosion products or biological growth) on the tube surfaces. You see it in the readings: the cold outlet is cooler and the hot outlet hotter than the baseline at the same flows, and the pressure drop often rises slowly. Trend the readings; one reading is not enough."},
+{k:["baffle","baffles","plates inside","plates in the shell"],s:"2.2",a:"Baffles are plates across the shell. They hold the tubes in place and stop them vibrating, and they make the shell-side fluid flow back and forth across the tubes instead of straight along the shell. Crossflow moves heat better. Baffles also cause much of the shell-side pressure drop."},
+{k:["clean","cleaning","wash","while running","online","open it","descale"],s:"7.2–7.3",a:"No. Never open, clean or remove covers while HX-101 is running or under pressure. Cleaning needs a shutdown with both sides isolated, depressurised, drained, cooled and made safe under your site's permit. Then trained people clean the tubes mechanically or chemically following the cleaning procedure."},
+{k:["start","startup","start-up","first","which side","commission","bring in"],s:"4.1–4.2",a:"Bring the cold side in first: open the inlet slowly and vent air from the high point until only liquid comes out. Then bring the hot side in slowly and vent it the same way. Heating up slowly avoids thermal shock at the tube joints and gaskets."},
+{k:["vent","air","bleed","trapped","hammer"],s:"4.1",a:"Vent each side at its high point when filling, until only liquid comes out. Trapped air blankets tube surface, so less heat is transferred, and it can cause hammering."},
+{k:["hot enough","cold enough","getting hot","not hot","not getting hot","not enough","not cooling","not heating","cold outlet","outlet temperature","temperature low","less heat","poor performance","underperform"],s:"9.2",a:"Not enough heating or cooling is usually caused by fouling, air that wasn't vented, a flow lower than normal, or an inlet temperature different from normal. Compare today's readings with the clean baseline at the same flows."},
+{k:["shut","shutdown","shut down","stop","switch off","turn off"],s:"7.1",a:"Reduce and isolate the hot side first, then the cold side, so the exchanger cools down without overheating the cold side."},
+{k:["leak","leaking","mixing","contamination","contaminated","drip"],s:"9.3",a:"Report it and follow your site procedure. A tube or gasket may be leaking. Isolate the exchanger as your procedure says."},
+{k:["maximum","max","design pressure","design temperature","limit","rating","nameplate","how hot","how much pressure"],s:"8.1",a:"Don't exceed the design pressure or temperature shown on the HX-101 nameplate. Never isolate the relief device while the exchanger is in service."},
+{k:["record","log","reading","readings","monitor","check every","each shift","baseline"],s:"5.1–5.3",a:"Each shift, record inlet and outlet temperatures and the pressure drop on both sides, and compare with the clean baseline at the same flow. A rising pressure drop or drifting outlet temperatures means the exchanger needs attention."}
+];
+var UNK="I'm not sure. This isn't in the approved manual. Please contact Example Process Equipment support.";
+function norm(t){return " "+t.toLowerCase().replace(/[’']/g,"").replace(/[^a-z0-9 -]+/g," ").replace(/\s+/g," ")+" ";}
+function answer(q){var t=norm(q),best=null,bs=0;
+for(var i=0;i<KB.length;i++){var sc=0;for(var j=0;j<KB[i].k.length;j++){var w=KB[i].k[j];if(t.indexOf(" "+w+" ")>-1||t.indexOf(" "+w+"s ")>-1||t.indexOf(" "+w+"ing ")>-1)sc+=w.split(" ").length;}
+if(sc>bs){bs=sc;best=KB[i];}}return best;}
+var chat=document.getElementById("chat");
+function add(text,cls,src){var d=document.createElement("div");d.className="msg "+cls;d.textContent=text;
+if(src){var s=document.createElement("span");s.className="src";s.textContent=src;d.appendChild(s);}chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
+function ask(q){q=q.trim();if(!q)return;add(q,"me");var r=answer(q);
+setTimeout(function(){if(r)add(r.a,"bot","Source: HX-101 manual, section "+r.s);else add(UNK,"bot unk","Not in the approved manual");},250);}
+var chips=document.querySelectorAll(".chip");for(var i=0;i<chips.length;i++)chips[i].addEventListener("click",function(){ask(this.textContent);});
+document.getElementById("ask").addEventListener("submit",function(e){e.preventDefault();var q=document.getElementById("q");ask(q.value);q.value="";});
+var boxes=document.querySelectorAll("#check input"),prog=document.getElementById("prog");
+function upd(){var n=0;for(var i=0;i<boxes.length;i++){var on=boxes[i].checked;boxes[i].parentNode.className=on?"done":"";if(on)n++;}
+prog.textContent=n===boxes.length?"All 8 done. Ready to run.":n+" of 8 done";}
+for(var b=0;b<boxes.length;b++)boxes[b].addEventListener("change",upd);
+window.__askTest=answer;
+})();
+</script>
+</body></html>
