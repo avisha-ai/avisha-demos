@@ -1,6 +1,6 @@
-# Avisha design kit v1
+# Avisha design kit v2
 
-Two small files, `avisha-kit.css` (~12 KB) and `avisha-kit.js` (~12 KB). There are no libraries, no external fonts or CDNs and no tracking. They power the Ask Avisha demo v3, and the LearnWithAvisha one-tap tiles will use them too (after 1 Dec).
+Two small files, `avisha-kit.css` (~17 KB) and `avisha-kit.js` (~12 KB). There are no libraries, no external fonts or CDNs and no tracking. They power the Ask Avisha demo v3, and the LearnWithAvisha one-tap tiles will use them too (after 1 Dec).
 
 ```html
 <link rel="stylesheet" href="avisha-kit.css">  <!-- or inline it -->
@@ -49,7 +49,7 @@ To open it, use `data-ak-sheet="sheet"` on any button, or call `AK.sheet.open("s
 `var s = AK.stories("st", {ms:5000, onEnd:fn})`, then `s.start()`, `s.stop()`, `s.go(i)` or `s.next()`. The progress bars run along the top and each card advances after 5 s. Tap the right two-thirds for the next card, the left third to go back, or use the ← → keys. Holding a finger down pauses, and so does the ❚❚ button. At the end the cards get an `.ended` class. With reduced motion on, nothing advances by itself.
 
 ## 5. Micro-interactions
-- **Ripple**: automatic on `.ak-tile`, `.ak-btn`, `.ak-fab`, `.ak-dial-item` and anything with `data-ak-ripple`.
+- **Ripple**: automatic on `.ak-tile`, `.ak-btn` (not the split pill), `.ak-dial-item` and anything with `data-ak-ripple`.
 - **Checkmark draw**: `<div class="ak-check"><svg viewBox="0 0 72 72"><circle cx="36" cy="36" r="34"/><path d="M21 37l10 10 20-22"/></svg></div>`, then `AK.check(el)`.
 - **Confetti**: `AK.confetti(hostEl, count)`. The host needs `position:relative`. The pieces clean themselves up after 1.4 s.
 - **Progress ring**: `<div class="ak-ring"><svg viewBox="0 0 84 84"><circle class="ak-ring-bg" cx="42" cy="42" r="36"/><circle class="ak-ring-fg" cx="42" cy="42" r="36"/></svg><span class="ak-ring-val"></span></div>`, then `AK.ring(el, 0..1, "3/8")`. It turns green when full.
@@ -57,10 +57,34 @@ To open it, use `data-ak-sheet="sheet"` on any button, or call `AK.sheet.open("s
 - **Shimmer skeleton**: `AK.skeleton(hostEl, 350, done, lines)`. It shows shimmer lines (with role=status) for at most 400 ms, then calls `done()`.
 - **Pop-up card**: add the class `ak-pop` to any element and it springs up when inserted.
 - **Scroll reveal**: put `class="ak-reveal"` on a section and it fades up when it scrolls into view.
-- **Button**: `.ak-btn` is a full-width gradient button, 58 px tall.
+- **Buttons**: see section 7.
 
 ## 6. Hero and theme
-`<header class="ak-hero">` gives a slowly drifting navy/teal/pink gradient (one transformed layer, so it's cheap). `.ak-glass` makes a frosted card on top of it. A button with `class="ak-toggle" data-ak-theme-toggle` switches light/dark (it sets `html[data-theme]` and updates `meta theme-color`). The first visit follows the device setting. Nothing is stored.
+`<header class="ak-hero">` gives a slowly drifting navy/teal/pink gradient (one transformed layer, so it's cheap). `.ak-glass` makes a frosted card on top of it. The day/night switch (section 7) changes light/dark: it sets `html[data-theme]` and updates `meta theme-color`. The first visit follows the device setting. Nothing is stored.
+
+## 7. Buttons (Avisha's chosen set, v2, 27 Nov 2026)
+Every button is `.ak-btn` plus one style. All are at least 56 px tall, lift on hover (`translateY(-3px)` + a deeper shadow) and press in on tap. Add `.ak-wide` for full width and `.ak-lift` to give other elements (chips, cards) the same lift.
+
+| Style | Class | Use it for | Rule |
+|---|---|---|---|
+| Dark pill with arrow | `.ak-btn-primary` | the main action on a screen | one per screen; turns light in dark mode |
+| Split pill + arrow bubble | `.ak-btn-split` | contact / book / ask someone | arrow turns 45° on hover |
+| Icon-circle pill | `.ak-btn-icon` (+ `.ak-ic-pink` / `.ak-ic-navy`) | secondary actions inside sheets | |
+| Glow gradient | `.ak-btn-ai` | the single AI action only | never twice on one screen |
+| Glass | `.ak-btn-glass` | buttons on the dark hero only | never on light backgrounds |
+| Day/night switch | `.ak-toggle-theme` + `data-ak-theme-toggle` | the theme switch | sun + clouds → moon + stars |
+
+```html
+<a class="ak-btn ak-btn-primary" href="…">Learn more <span class="ak-arrow" aria-hidden="true">→</span></a>
+<a class="ak-btn ak-btn-split" href="…"><span class="ak-split-label">Contact support</span><span class="ak-split-arrow" aria-hidden="true">↗</span></a>
+<button class="ak-btn ak-btn-icon" type="button"><span class="ak-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch now</button>
+<button class="ak-btn ak-btn-ai" type="button"><svg class="ak-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg>Ask Avisha</button>
+<button class="ak-btn ak-btn-glass" type="button">Read the manual</button>
+<button class="ak-toggle-theme" type="button" data-ak-theme-toggle aria-pressed="false" aria-label="Dark mode"></button>
+```
+The kit fills in the switch's track and knob by itself. It uses `aria-pressed` with a fixed "Dark mode" label.
+
+Removed in v2 (they clashed with this set): the old full-width teal `.ak-btn`, the emoji `.ak-toggle`, and the magenta gradient on `.ak-fab` (the speed-dial button is now `.ak-btn .ak-btn-ai .ak-fab`). Not used on purpose: chunky 3D buttons (look like a game) and neumorphic buttons (low contrast).
 
 ## Quality rules built in
 - `prefers-reduced-motion`: every animation and transition is off. There's no tilt, ripple or confetti, the checkmark shows already drawn, and the stories don't auto-advance.
